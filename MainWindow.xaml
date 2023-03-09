@@ -22,8 +22,12 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Menu Height="25" VerticalAlignment="Top" Grid.ColumnSpan="2">
-            <MenuItem Header="Клиент">
+        <Menu x:Name="MenuHeader" 
+              Height="20" 
+              VerticalAlignment="Top"
+              FontSize="14"
+              Grid.ColumnSpan="2">
+            <MenuItem x:Name="MenuHeaderItem" Header="Клиент" MouseUp="OnMouseUp">
                 <MenuItem Header="Добавить"></MenuItem>
                 <Separator />
                 <MenuItem Header="Удалить"></MenuItem>

@@ -1,0 +1,15 @@
+C:\repos\SimpleBank\bin\Debug\SimpleBank.exe.config
+C:\repos\SimpleBank\bin\Debug\SimpleBank.exe
+C:\repos\SimpleBank\bin\Debug\SimpleBank.pdb
+C:\repos\SimpleBank\obj\Debug\SimpleBank.csprojAssemblyReference.cache
+C:\repos\SimpleBank\obj\Debug\MainWindow.g.cs
+C:\repos\SimpleBank\obj\Debug\App.g.cs
+C:\repos\SimpleBank\obj\Debug\SimpleBank_MarkupCompile.cache
+C:\repos\SimpleBank\obj\Debug\SimpleBank_MarkupCompile.lref
+C:\repos\SimpleBank\obj\Debug\MainWindow.baml
+C:\repos\SimpleBank\obj\Debug\SimpleBank.g.resources
+C:\repos\SimpleBank\obj\Debug\SimpleBank.Properties.Resources.resources
+C:\repos\SimpleBank\obj\Debug\SimpleBank.csproj.GenerateResource.cache
+C:\repos\SimpleBank\obj\Debug\SimpleBank.csproj.CoreCompileInputs.cache
+C:\repos\SimpleBank\obj\Debug\SimpleBank.exe
+C:\repos\SimpleBank\obj\Debug\SimpleBank.pdb
