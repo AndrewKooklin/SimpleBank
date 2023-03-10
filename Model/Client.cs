@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace SimpleBank.Model
 {
-    public class Client
+    public class Client : Person
     {
+        public Client()
+        {
+        }
+
+
     }
 }
