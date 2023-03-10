@@ -28,6 +28,7 @@ namespace SimpleBank.Model
         {
             decimal increment = Total * Interest / 100;
             Total += increment;
+            ShowMessage("На счет начислены проценты ");
         }
     }
 }
