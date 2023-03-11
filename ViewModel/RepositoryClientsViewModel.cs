@@ -1,4 +1,5 @@
 ﻿using SimpleBank.Model;
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace SimpleBank.ViewModel
@@ -14,7 +15,7 @@ namespace SimpleBank.ViewModel
         {
             get
             {
-                return "Список клиентов";
+                return "Список";
             }
         }
 
@@ -25,7 +26,7 @@ namespace SimpleBank.ViewModel
                 if (getRepositoryClientCommand == null)
                 {
                     getRepositoryClientCommand = new RelayCommand(
-                        param => GetRepositoryClient(),
+                        param => GetRepositoryClients(),
                         param => currentRepositoryClient.ClientList.Count > 0
                     );
                 }
@@ -61,12 +62,62 @@ namespace SimpleBank.ViewModel
             }
         }
 
-        private void GetRepositoryClient()
+        private void GetRepositoryClients()
         {
             // Usually you'd get your Product from your datastore,
             // but for now we'll just return a new object
             RepositoryClient<Client> repositoryClient = new RepositoryClient<Client>();
-            
+            repositoryClient.ClientList = new List<Client>()
+                {
+            new Client{ PersonId = 1,
+                        LastName = "Michailov",
+                        FirstName = "Vitor",
+                        FathersName = "Stepanovich",
+                        Phone = 89256521545,
+                        PassportNumber = "1254-15478"},
+            new Client{ PersonId = 2,
+                        LastName = "Michailov",
+                        FirstName = "Vitor",
+                        FathersName = "Stepanovich",
+                        Phone = 89256521545,
+                        PassportNumber = "1254-15478"},
+            new Client{ PersonId = 3,
+                        LastName = "Michailov",
+                        FirstName = "Vitor",
+                        FathersName = "Stepanovich",
+                        Phone = 89256521545,
+                        PassportNumber = "1254-15478"}
+            };    
+        }
+
+        public List<Client> GetRepositoryClientsList()
+        {
+            // Usually you'd get your Product from your datastore,
+            // but for now we'll just return a new object
+            RepositoryClient<Client> repositoryClient = new RepositoryClient<Client>();
+            repositoryClient.ClientList = new List<Client>()
+                {
+            new Client{ PersonId = 1,
+                        LastName = "Michailov",
+                        FirstName = "Vitor",
+                        FathersName = "Stepanovich",
+                        Phone = 89256521545,
+                        PassportNumber = "1254-15478"},
+            new Client{ PersonId = 2,
+                        LastName = "Michailov",
+                        FirstName = "Vitor",
+                        FathersName = "Stepanovich",
+                        Phone = 89256521545,
+                        PassportNumber = "1254-15478"},
+            new Client{ PersonId = 3,
+                        LastName = "Michailov",
+                        FirstName = "Vitor",
+                        FathersName = "Stepanovich",
+                        Phone = 89256521545,
+                        PassportNumber = "1254-15478"}
+            };
+
+            return repositoryClient.ClientList;
         }
 
         private void SaveRepositoryClient()

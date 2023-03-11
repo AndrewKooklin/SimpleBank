@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\repos\SimpleBank\App.xaml
-2574320480
+41419204499
 
-20-335530516
+22999089788
 13-1505183044
-MainWindow.xaml;View\ClientView.xaml;
+MainWindow.xaml;View\ClientView.xaml;View\HelloView.xaml;View\RepositoryClientsView.xaml;
 
 False
 

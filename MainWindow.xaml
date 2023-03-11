@@ -3,16 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SimpleBank"
+        xmlns:local="clr-namespace:SimpleBank" 
+        xmlns:local1="clr-namespace:SimpleBank.View"
+        xmlns:local2="clr-namespace:SimpleBank.ViewModel"
         mc:Ignorable="d"
         Title="SimpleBank" 
-        Height="500" 
-        Width="800"
+        Height="400" 
+        Width="700"
         Background="#FFCCF6EE"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        
+        <DataTemplate DataType="{x:Type local2:HelloViewModel}">
+            <local1:HelloView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local2:MainWindowViewModel}">
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local2:RepositoryClientsViewModel}">
+            <local1:RepositoryClientsView />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid>
@@ -22,15 +31,30 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="5*"></ColumnDefinition>
+            <ColumnDefinition Width="6*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Menu x:Name="MenuHeader" 
-              Height="20" 
+
+        
+                    <Menu x:Name="MenuHeader" 
+              Height="20"
               VerticalAlignment="Top"
               FontSize="14"
               Grid.ColumnSpan="2">
-            <MenuItem x:Name="MenuHeaderItem" Header="Клиент">
+            <MenuItem x:Name="MenuHeaderItem" 
+                      Header="Клиенты">
+                <ItemsControl ItemsSource="{Binding PageViewModels}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <MenuItem Header = "{Binding Message}"
+                                      Command ="{Binding DataContext.ChangePageCommand, 
+                                                RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                      CommandParameter ="{Binding }">
+                            </MenuItem>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Separator />
                 <MenuItem Header="Добавить"></MenuItem>
                 <Separator />
                 <MenuItem Header="Удалить"></MenuItem>
@@ -50,9 +74,11 @@
                 <MenuItem Header="Между клиентами"></MenuItem>
             </MenuItem>
         </Menu>
+                
 
-        <StackPanel x:Name="LeftMenu"
-                    Grid.Row="1">
+
+        <!--<StackPanel x:Name="LeftMenu"
+                        Grid.Row="1">
             <Border DockPanel.Dock="Left" BorderBrush="Black" BorderThickness="0,0,1,0">
                 <ItemsControl ItemsSource="{Binding PageViewModels}">
                     <ItemsControl.ItemTemplate>
@@ -65,7 +91,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </Border>
-        </StackPanel>
+        </StackPanel>-->
 
         <StackPanel x:Name="spContent"
                     Grid.Row="1"

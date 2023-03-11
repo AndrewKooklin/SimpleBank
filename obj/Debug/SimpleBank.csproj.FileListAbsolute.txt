@@ -15,3 +15,8 @@ C:\repos\SimpleBank\obj\Debug\SimpleBank.exe
 C:\repos\SimpleBank\obj\Debug\SimpleBank.pdb
 C:\repos\SimpleBank\obj\Debug\View\ClientView.g.cs
 C:\repos\SimpleBank\obj\Debug\View\ClientView.baml
+C:\repos\SimpleBank\obj\Debug\View\HelloView.g.cs
+C:\repos\SimpleBank\obj\Debug\View\HelloView.baml
+C:\repos\SimpleBank\obj\Debug\View\RepositoryClientsView.g.cs
+C:\repos\SimpleBank\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\repos\SimpleBank\obj\Debug\View\RepositoryClientsView.baml

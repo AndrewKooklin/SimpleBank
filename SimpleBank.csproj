@@ -63,6 +63,12 @@
     <Compile Include="View\ClientView.xaml.cs">
       <DependentUpon>ClientView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\HelloView.xaml.cs">
+      <DependentUpon>HelloView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RepositoryClientsView.xaml.cs">
+      <DependentUpon>RepositoryClientsView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -76,6 +82,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\ClientView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HelloView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RepositoryClientsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
