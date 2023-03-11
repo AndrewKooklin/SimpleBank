@@ -1,5 +1,4 @@
-﻿using SimpleBank.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SimpleBank
+namespace SimpleBank.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ClientView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ClientView : UserControl
     {
-        public MainWindow()
+        public ClientView()
         {
-            MainWindowViewModel context = new MainWindowViewModel();
-            this.DataContext = context;
             InitializeComponent();
-            
         }
     }
 }

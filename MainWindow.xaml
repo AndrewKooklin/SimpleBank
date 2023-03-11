@@ -7,19 +7,22 @@
         mc:Ignorable="d"
         Title="SimpleBank" 
         Height="500" 
-        Width="1000"
+        Width="800"
         Background="#FFCCF6EE"
         WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30*"/>
+            <RowDefinition Height="7*"/>
             <RowDefinition Height="132*"/>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="60*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Menu x:Name="MenuHeader" 
@@ -27,7 +30,7 @@
               VerticalAlignment="Top"
               FontSize="14"
               Grid.ColumnSpan="2">
-            <MenuItem x:Name="MenuHeaderItem" Header="Клиент" MouseUp="OnMouseUp">
+            <MenuItem x:Name="MenuHeaderItem" Header="Клиент">
                 <MenuItem Header="Добавить"></MenuItem>
                 <Separator />
                 <MenuItem Header="Удалить"></MenuItem>
@@ -48,6 +51,27 @@
             </MenuItem>
         </Menu>
 
+        <StackPanel x:Name="LeftMenu"
+                    Grid.Row="1">
+            <Border DockPanel.Dock="Left" BorderBrush="Black" BorderThickness="0,0,1,0">
+                <ItemsControl ItemsSource="{Binding PageViewModels}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding Message}"
+                                Command="{Binding DataContext.ChangePageCommand, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                CommandParameter="{Binding }"
+                                Margin="2,5"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+        </StackPanel>
+
+        <StackPanel x:Name="spContent"
+                    Grid.Row="1"
+                    Grid.Column="1">
+            <ContentControl Content="{Binding CurrentPageViewModel}" />
+        </StackPanel>
 
     </Grid>
 </Window>

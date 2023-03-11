@@ -8,10 +8,11 @@ namespace SimpleBank.Model
 {
     public class Client : Person
     {
-        public Client()
+        RepositoryAccount<Account> AccountRepository { get; set; }
+
+        public Client() : base()
         {
-        }
-
-
+            AccountRepository = new RepositoryAccount<Account>();
+        } 
     }
 }

@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace SimpleBank.Model
 {
-    public class SalaryAccount : Account
+    public class RepositoryClient<T> where T : Client
     {
-        public SalaryAccount(int id, decimal total, DateTime dateOpen) : base(id, total, dateOpen)
+        public List<T> ClientList { get; set; }
+
+        public RepositoryClient()
         {
+            ClientList = new List<T>();
         }
     }
 }

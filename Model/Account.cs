@@ -1,35 +1,65 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SimpleBank.Model
 {
-    public class Account
+    public class Account : ObjectObservable, IAccount
     {
-        public Account(int id, decimal total, DateTime dateOpen)
+        public Account(int accountId, decimal total, DateTime dateOpen)
         {
-            Id = id;
+            AccountId = accountId;
             Total = total;
             DateOpen = dateOpen;
         }
 
-        public int Id { get; private set; }
+        private int accountId;
+        private decimal total;
+        private DateTime dateOpen;
 
-        public decimal Total { get; set; }
+        public int AccountId {
+            get { return accountId; }
+            set
+            {
+                if (value != accountId)
+                {
+                    accountId = value;
+                    OnPropertyChanged("AccountId");
+                }
+            }
+        }
 
-        public DateTime DateOpen { get; private set; }
+        public decimal Total {
+            get { return total; }
+            set
+            {
+                if (value != total)
+                {
+                    total = value;
+                    OnPropertyChanged("Total");
+                }
+            }
+        }
 
-        public virtual void PutMoney(decimal sum)
+        public DateTime DateOpen {
+            get { return dateOpen; }
+            set
+            {
+                if (value != dateOpen)
+                {
+                    dateOpen = value;
+                    OnPropertyChanged("DateOpen");
+                }
+            }
+        }
+
+        public void PutMoney(decimal sum)
         {
            Total += sum;
 
            ShowMessage("На счет внесено " + sum);
         }
 
-        public virtual decimal WithdrawMoney(decimal sum)
+        public decimal WithdrawMoney(decimal sum)
         {
             decimal result = 0;
             if (Total >= sum)
@@ -39,7 +69,7 @@ namespace SimpleBank.Model
             }
             else
             {
-                ShowMessage($"Недостаточно денег на счете {Id}");
+                ShowMessage($"Недостаточно денег на счете {accountId}");
             }
             return result;
         }

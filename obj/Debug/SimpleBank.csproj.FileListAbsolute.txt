@@ -13,3 +13,5 @@ C:\repos\SimpleBank\obj\Debug\SimpleBank.csproj.GenerateResource.cache
 C:\repos\SimpleBank\obj\Debug\SimpleBank.csproj.CoreCompileInputs.cache
 C:\repos\SimpleBank\obj\Debug\SimpleBank.exe
 C:\repos\SimpleBank\obj\Debug\SimpleBank.pdb
+C:\repos\SimpleBank\obj\Debug\View\ClientView.g.cs
+C:\repos\SimpleBank\obj\Debug\View\ClientView.baml

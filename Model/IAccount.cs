@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SimpleBank.Model
 {
-    public class SalaryAccount : Account
+    public interface IAccount
     {
-        public SalaryAccount(int id, decimal total, DateTime dateOpen) : base(id, total, dateOpen)
-        {
-        }
+        void PutMoney(decimal sum);
+
+        decimal WithdrawMoney(decimal sum);
     }
 }
