@@ -14,6 +14,9 @@ namespace SimpleBank.ViewModel
         private List<IPageViewModel> pageViewModels;
         private ICommand changePageCommand;
 
+
+        //Do work: Dictionary<string, ViewModel>
+
         public MainWindowViewModel()
         {
             PageViewModels.Add(new HelloViewModel());
@@ -71,6 +74,14 @@ namespace SimpleBank.ViewModel
 
             CurrentPageViewModel = PageViewModels
                 .FirstOrDefault(vm => vm == viewModel);
+        }
+
+        public string NamePage
+        {
+            get
+            {
+                return currentPageViewModel.NamePage;
+            }
         }
     }
 }

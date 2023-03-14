@@ -4,14 +4,14 @@ using System.Windows.Input;
 
 namespace SimpleBank.ViewModel
 {
-    class RepositoryClientsViewModel : ObjectObservable, IPageViewModel
+    public class RepositoryClientsViewModel : ObjectObservable, IPageViewModel
     {
         private RepositoryClient<Client> currentRepositoryClient;
 
         private ICommand getRepositoryClientCommand;
         private ICommand saveRepositoryClientCommand;
 
-        public string Message
+        public string NamePage
         {
             get
             {

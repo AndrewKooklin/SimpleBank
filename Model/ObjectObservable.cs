@@ -8,13 +8,13 @@ namespace SimpleBank.Model
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        public virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = this.PropertyChanged;
             if (handler != null)
             {
-                var e = new PropertyChangedEventArgs(propertyName);
-                handler(this, e);
+                var eventArgs = new PropertyChangedEventArgs(propertyName);
+                handler(this, eventArgs);
             }
         }
     }

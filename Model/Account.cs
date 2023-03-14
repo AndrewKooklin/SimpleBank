@@ -1,9 +1,10 @@
-﻿using System;
+﻿using SimpleBank.Help;
+using System;
 using System.Windows;
 
 namespace SimpleBank.Model
 {
-    public class Account : ObjectObservable, IAccount
+    public class Account : ObjectObservable, ITransactionWithAccount<decimal>
     {
         public Account(int accountId, decimal total, DateTime dateOpen)
         {
@@ -52,24 +53,23 @@ namespace SimpleBank.Model
             }
         }
 
-        public void PutMoney(decimal sum)
+        public decimal Put(Account account, decimal amount)
         {
-           Total += sum;
-
-           ShowMessage("На счет внесено " + sum);
+            decimal result = account.Total + amount;
+            return result;
         }
 
-        public decimal WithdrawMoney(decimal sum)
+        public decimal Withdraw(Account account, decimal amount)
         {
             decimal result = 0;
-            if (Total >= sum)
+
+            if (account.Total >= amount)
             {
-                Total -= sum;
-                ShowMessage("Со счета снято " + sum);
+                result = account.Total - amount;
             }
             else
             {
-                ShowMessage($"Недостаточно денег на счете {accountId}");
+                ShowMessage($"Недостаточно денег на счете {account.accountId}");
             }
             return result;
         }

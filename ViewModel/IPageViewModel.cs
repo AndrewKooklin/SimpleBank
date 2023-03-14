@@ -4,6 +4,6 @@ namespace SimpleBank.ViewModel
 {
     public interface IPageViewModel
     {
-        string Message { get; }
+        string NamePage { get; }
     }
 }

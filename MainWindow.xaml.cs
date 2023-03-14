@@ -17,8 +17,7 @@ namespace SimpleBank
         {
             
             InitializeComponent();
-            MainWindowViewModel context = new MainWindowViewModel();
-            this.DataContext = context;
+            
         }
     }
 }

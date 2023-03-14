@@ -9,7 +9,7 @@ namespace SimpleBank.ViewModel
 {
     public class HelloViewModel : ObjectObservable, IPageViewModel
     {
-        public string Message
+        public string NamePage
         {
             get
             {

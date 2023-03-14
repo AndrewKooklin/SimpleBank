@@ -10,15 +10,15 @@ namespace SimpleBank.Model
     {
         private int personId;
 
-        public string lastName;
+        private string lastName;
 
-        public string firstName;
+        private string firstName;
 
-        public string fathersName;
+        private string fathersName;
 
-        public long phone;
+        private long phone;
 
-        public string passportNumber;
+        private string passportNumber;
 
         public Person()
         {

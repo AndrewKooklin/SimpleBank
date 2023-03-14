@@ -17,8 +17,11 @@ namespace SimpleBank
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            
-            //mainWindow.Show();
+
+            MainWindow mainWindow = new MainWindow();
+            MainWindowViewModel context = new MainWindowViewModel();
+            mainWindow.DataContext = context;
+            mainWindow.Show();
         }
     }
 }

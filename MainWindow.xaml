@@ -17,8 +17,6 @@
         <DataTemplate DataType="{x:Type local2:HelloViewModel}">
             <local1:HelloView />
         </DataTemplate>
-        <DataTemplate DataType="{x:Type local2:MainWindowViewModel}">
-        </DataTemplate>
         <DataTemplate DataType="{x:Type local2:RepositoryClientsViewModel}">
             <local1:RepositoryClientsView />
         </DataTemplate>
@@ -35,40 +33,37 @@
         </Grid.ColumnDefinitions>
 
 
-        
-                    <Menu x:Name="MenuHeader" 
-              Height="20"
+
+        <Menu x:Name="MenuHeader"
+              Height="24"
               VerticalAlignment="Top"
               FontSize="14"
               Grid.ColumnSpan="2">
+            <MenuItem Header="Главная"></MenuItem>
             <MenuItem x:Name="MenuHeaderItem" 
                       Header="Клиенты">
                 <ItemsControl ItemsSource="{Binding PageViewModels}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <MenuItem Header = "{Binding Message}"
-                                      Command ="{Binding DataContext.ChangePageCommand, 
-                                                RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                                      CommandParameter ="{Binding }">
+                            <MenuItem x:Name="miClientList"
+                                      Header = "{Binding NamePage}"
+                                      Command = "{Binding DataContext.ChangePageCommand, 
+                                                RelativeSource={RelativeSource  AncestorType={x:Type Window}}}"
+                                      CommandParameter = "{Binding }">
                             </MenuItem>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <Separator />
                 <MenuItem Header="Добавить"></MenuItem>
-                <Separator />
                 <MenuItem Header="Удалить"></MenuItem>
             </MenuItem>
-            <Separator />
             <MenuItem Header="Счет">
                 <MenuItem Header="Открыть">
                     <MenuItem Header="Депозитный"></MenuItem>
-                    <MenuItem Header="Недепозитный" ></MenuItem>
+                    <MenuItem Header="Недепозитный"></MenuItem>
                 </MenuItem>
-                <Separator />
-                <MenuItem Header="Закрыть" ></MenuItem>
+                <MenuItem Header="Закрыть"></MenuItem>
             </MenuItem>
-            <Separator />
             <MenuItem Header="Перевод" >
                 <MenuItem Header="Между своими счетами"></MenuItem>
                 <MenuItem Header="Между клиентами"></MenuItem>
