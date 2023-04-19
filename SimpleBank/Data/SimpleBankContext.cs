@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SimpleBank.Model;
+﻿using SimpleBank.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.SQLite;
 using System.Linq;
 
 namespace SimpleBank.Data
@@ -16,25 +18,37 @@ namespace SimpleBank.Data
 
         private static bool _created = false;
 
-        public SimpleBankContext()// : base("SimpleBankConnectionSQLite") 
+        public string path = @".\SimpleBank.db";
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlite($"Data Source = {path}");
+        //}
+
+        public SimpleBankContext() : base(new SQLiteConnection()
         {
-            //if (!_created)
-            //{
-            //    //Database.Delete();
-            //    Database.CreateIfNotExists();
-            //    _created = true;
-            //}
+            ConnectionString = new SQLiteConnectionStringBuilder()
+            {
+                DataSource = "SimpleBank.db",
+                ForeignKeys = true
+            }.ConnectionString   
+        }, true) 
+        {
+            
         }
 
-        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        //{
-        //    var sqLiteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<SimpleBankContext>(modelBuilder);
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
 
-        //    Database.SetInitializer(sqLiteConnectionInitializer);
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            base.OnModelCreating(modelBuilder);
+            //var sqLiteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<SimpleBankContext>(modelBuilder);
 
-        //    var model = modelBuilder.Build(Database.Connection);
-        //    ISqlGenerator sqlGenerator = new SqliteSqlGenerator();
-        //    string sql = sqlGenerator.Generate(model.StoreModel);
-        //}
+            //Database.SetInitializer(sqLiteConnectionInitializer);
+
+            //var model = modelBuilder.Build(Database.Connection);
+            //ISqlGenerator sqlGenerator = new SqliteSqlGenerator();
+            //string sql = sqlGenerator.Generate(model.StoreModel);
+        }
     }
 }

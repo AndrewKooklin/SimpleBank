@@ -85,3 +85,5 @@ C:\repos\SimpleBank\SimpleBank\obj\Debug\SimpleBank.Properties.Resources.resourc
 C:\repos\SimpleBank\SimpleBank\obj\Debug\SimpleBank.csproj.GenerateResource.cache
 C:\repos\SimpleBank\SimpleBank\obj\Debug\SimpleBank.csproj.CoreCompileInputs.cache
 C:\repos\SimpleBank\SimpleBank\obj\Debug\SimpleBank.csproj.CopyComplete
+C:\repos\SimpleBank\SimpleBank\bin\Debug\Microsoft.EntityFrameworkCore.Design.dll
+C:\repos\SimpleBank\SimpleBank\bin\Debug\Microsoft.EntityFrameworkCore.Design.xml
