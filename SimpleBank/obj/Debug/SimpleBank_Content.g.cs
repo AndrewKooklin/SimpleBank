@@ -13,5 +13,6 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/simplebank.db")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/simplebankconnectionsqlite.mdf")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/simplebankconnectionsqlite_log.ldf")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("data/simplebank.db")]
 
 

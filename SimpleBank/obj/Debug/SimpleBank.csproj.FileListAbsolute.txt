@@ -102,3 +102,4 @@ C:\repos\SimpleBank\SimpleBank\bin\Debug\bin\Debug\bin\Debug\SimpleBankConnectio
 C:\repos\SimpleBank\SimpleBank\bin\Debug\bin\Debug\bin\Debug\SimpleBankConnectionSQLite_log.ldf
 C:\repos\SimpleBank\SimpleBank\bin\Debug\bin\Debug\SimpleBankConnectionSQLite.mdf
 C:\repos\SimpleBank\SimpleBank\bin\Debug\bin\Debug\SimpleBankConnectionSQLite_log.ldf
+C:\repos\SimpleBank\SimpleBank\bin\Debug\Data\SimpleBank.db
