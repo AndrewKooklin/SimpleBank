@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SimpleBank.Data
+{
+    public class Configuration //: DbConfiguration
+    {
+        public Configuration()
+        {
+            //SetProviderFactory("System.Data.SQLite", SQLiteFactory.Instance);
+            //SetProviderFactory("System.Data.SQLite.EF6", SQLiteProviderFactory.Instance);
+
+            //var providerServices = (DbProviderServices)SQLiteProviderFactory.Instance.GetService(typeof(DbProviderServices));
+
+            //SetProviderServices("System.Data.SQLite", providerServices);
+            //SetProviderServices("System.Data.SQLite.EF6", providerServices);
+
+        }
+
+        //public DbConnection CreateConnection(string connectionString) => new SQLiteConnection(connectionString);
+    }
+}
