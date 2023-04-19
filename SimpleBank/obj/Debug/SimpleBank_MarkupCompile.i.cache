@@ -11,10 +11,10 @@ false
 DEBUG;TRACE
 C:\repos\SimpleBank\SimpleBank\App.xaml
 6910792287
-
-43-223833625
-551065595163
+5-790908657
+411592520544
+57-1827377926
 MainWindow.xaml;View\AccountActionView.xaml;View\CreatePersonView.xaml;View\PersonView.xaml;View\TransactionBetweenClientsView.xaml;View\TransactionWithSelfView.xaml;
 
-True
+False
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite.CodeFirst;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,15 +18,15 @@ namespace SimpleBank.Model
             DateSalaryOpen = DateTime.Now;
         }
 
-        [Key]
-        //[Unique]
+        [Key,Autoincrement]
+        [Unique]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("SalaryAccountId")]
         public int SalaryAccountId { get; set; }
 
-        
         [Column("PersonId")]
+        //[ForeignKey("FK_SalaryAccount")]
         public int PersonId { get; set; }
 
         [Column("SalaryTotal")]
@@ -33,5 +34,6 @@ namespace SimpleBank.Model
 
         [Column("DateSalaryOpen")]
         public DateTime DateSalaryOpen { get; set; }
+
     }
 }

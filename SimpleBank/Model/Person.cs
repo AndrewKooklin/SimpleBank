@@ -2,6 +2,7 @@
 using SimpleBank.Data;
 using SimpleBank.Storage;
 using SimpleBank.ViewModel;
+using SQLite.CodeFirst;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -58,8 +59,8 @@ namespace SimpleBank.Model
             _mainWindowViewModel = mainWindowViewModel;
         }
 
-        [Key]
-        //[Unique]
+        [Key, Autoincrement]
+        [Unique]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("PersonId")]
@@ -128,12 +129,12 @@ namespace SimpleBank.Model
             }
         }
 
-        [ForeignKey("PersonId")]
-        [Column("DepositAccount")]
-        public DepositAccount DepositAccount { get; set; }
+        //[ForeignKey("PersonId")]
+        //[Column("DepositAccount")]
+        //public DepositAccount DepositAccount { get; set; }
 
-        [ForeignKey("PersonId")]
-        [Column("SalaryAccount")]
-        public SalaryAccount SalaryAccount { get; set; }
+        //[ForeignKey("PersonId")]
+        //[Column("SalaryAccount")]
+        //public SalaryAccount SalaryAccount { get; set; }
     }
 }

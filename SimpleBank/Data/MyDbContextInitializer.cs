@@ -1,21 +1,23 @@
-﻿using System;
+﻿using SQLite.CodeFirst;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SimpleBank.Data
 {
-    public class MyDbContextInitializer// : SqliteDropCreateDatabaseAlways<SimpleBankContext>
+    public class MyDbContextInitializer : SqliteDropCreateDatabaseAlways<SimpleBankContext>
     {
-        //public MyDbContextInitializer(DbModelBuilder modelBuilder) : base(modelBuilder)
-        //{
-        //    //Database.SetInitializer<SimpleBankContext>(null);
-        //}
+        public MyDbContextInitializer(DbModelBuilder modelBuilder) : base(modelBuilder)
+        {
+            //Database.SetInitializer<SimpleBankContext>(null);
+        }
 
-        //protected override void Seed(SimpleBankContext context)
-        //{
-            
-        //}
+        protected override void Seed(SimpleBankContext context)
+        {
+
+        }
     }
 }

@@ -43,24 +43,14 @@
         <Grid.Resources>
             <model:Person x:Key="Person"/>
             <viewModel:MainWindowViewModel x:Key="MainWindowViewModel"/>
-            <!--<viewModel:CreatePersonViewModel x:Key="CreatePersonViewModel"/>-->
-            <!--<DataTemplate DataType="{x:Type viewModel:RepositoryClientsViewModel}">
-                <local:RepositoryClientsView/>
-            </DataTemplate>-->
-            <!--<DataTemplate DataType="{x:Type viewModel:PersonViewModel}">
-            </DataTemplate>-->
         </Grid.Resources>
 
         
 
         <StackPanel x:Name="spClient"
                     Margin="0 10 0 0">
-            
+
             <StackPanel x:Name="spPerson">
-                <StackPanel.BindingGroup>
-                    <BindingGroup x:Name="bindingGroup">
-                    </BindingGroup>
-                </StackPanel.BindingGroup>
                 <TextBlock Text="Данные клиента"
                        Style="{StaticResource PersonTextBlockHeader}"></TextBlock>
                 <TextBox x:Name="tbSelectedIndexPerson"
@@ -72,17 +62,15 @@
                 <TextBlock Text="Фамилия"
                            Style="{StaticResource PersonTextBlock}"></TextBlock>
                 <TextBox x:Name="tbLastName"
-                         BindingGroup="{Binding BindingGroupName=bindingGroup}"
                          Text="{Binding LastName, Source={StaticResource Person}, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
                          Style="{StaticResource PersonTextBox}"></TextBox>
                 <TextBlock Text="Имя"
                            Style="{StaticResource PersonTextBlock}"></TextBlock>
                 <TextBox x:Name="tbFirstName"
                          Text="{Binding FirstName, Source={StaticResource Person}, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
-                         BindingGroup="{Binding BindingGroupName=bindingGroup}"
-                     Style="{StaticResource PersonTextBox}"></TextBox>
+                         Style="{StaticResource PersonTextBox}"></TextBox>
                 <TextBlock Text="Отчество"
-                       Style="{StaticResource PersonTextBlock}"></TextBlock>
+                           Style="{StaticResource PersonTextBlock}"></TextBlock>
                 <TextBox x:Name="tbFathersName"
                          Text="{Binding FathersName, Source={StaticResource Person}, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}"
                          Style="{StaticResource PersonTextBox}"></TextBox>

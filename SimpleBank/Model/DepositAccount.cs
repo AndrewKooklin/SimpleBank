@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite.CodeFirst;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,8 +18,8 @@ namespace SimpleBank.Model
             DateDepositOpen = DateTime.Now;
         }
 
-        [Key]
-        //[Unique]
+        [Key,Autoincrement]
+        [Unique]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("DepositAccountId")]
@@ -26,6 +27,7 @@ namespace SimpleBank.Model
 
         
         [Column("PersonId")]
+        //[ForeignKey("FK_DepositAccount")]
         public int PersonId { get; set; }
 
         [Column("DepositTotal")]

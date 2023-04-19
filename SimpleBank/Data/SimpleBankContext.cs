@@ -1,4 +1,5 @@
 ﻿using SimpleBank.Model;
+using SQLite.CodeFirst;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -16,39 +17,32 @@ namespace SimpleBank.Data
 
         public DbSet<DepositAccount> DepositAccounts { get; set; }
 
-        private static bool _created = false;
-
-        public string path = @".\SimpleBank.db";
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlite($"Data Source = {path}");
-        //}
-
-        public SimpleBankContext() : base(new SQLiteConnection()
-        {
-            ConnectionString = new SQLiteConnectionStringBuilder()
-            {
-                DataSource = "SimpleBank.db",
-                ForeignKeys = true
-            }.ConnectionString   
-        }, true) 
+        public SimpleBankContext() : base("SimpleBankConnectionSQLite") 
         {
             
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            var sqLiteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<SimpleBankContext>(modelBuilder);
 
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            base.OnModelCreating(modelBuilder);
-            //var sqLiteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<SimpleBankContext>(modelBuilder);
-
-            //Database.SetInitializer(sqLiteConnectionInitializer);
+            Database.SetInitializer(sqLiteConnectionInitializer);
 
             //var model = modelBuilder.Build(Database.Connection);
             //ISqlGenerator sqlGenerator = new SqliteSqlGenerator();
             //string sql = sqlGenerator.Generate(model.StoreModel);
+
+            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            //base.OnModelCreating(modelBuilder);
         }
+
+        //private static bool _created = false;
+
+        //public string path = @".\SimpleBank.db";
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlite($"Data Source = {path}");
+        //}
     }
 }
