@@ -27,11 +27,10 @@ namespace SimpleBank.Model
 
         
         [Column("PersonId")]
-        //[ForeignKey("FK_DepositAccount")]
-        public int PersonId { get; set; }
+        public int PersonId{ get; set; }
 
         [Column("DepositTotal")]
-        public int DepositTotal { get; set; } = 0;
+        public int? DepositTotal { get; set; } = 0;
 
         [Column("DateDepositOpen")]
         public DateTime DateDepositOpen { get; set; }

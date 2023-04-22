@@ -17,9 +17,9 @@ namespace SimpleBank.Data
 
         public DbSet<DepositAccount> DepositAccounts { get; set; }
 
-        public SimpleBankContext() : base("SimpleBankConnectionSQLite") 
+        public SimpleBankContext() : base("SimpleBankConnectionSQLite")
         {
-            
+
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -34,6 +34,11 @@ namespace SimpleBank.Data
 
             //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             //base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<DepositAccount>()
+            //    .HasRequired<Person>(o => o.PersonDepositAccount)
+            //    .WithMany()
+            //    .HasForeignKey(t => t.PersonDepositAccount);
         }
 
         //private static bool _created = false;

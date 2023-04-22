@@ -26,11 +26,10 @@ namespace SimpleBank.Model
         public int SalaryAccountId { get; set; }
 
         [Column("PersonId")]
-        //[ForeignKey("FK_SalaryAccount")]
         public int PersonId { get; set; }
 
         [Column("SalaryTotal")]
-        public int SalaryTotal { get; set; } = 0;
+        public int? SalaryTotal { get; set; } = 0;
 
         [Column("DateSalaryOpen")]
         public DateTime DateSalaryOpen { get; set; }
