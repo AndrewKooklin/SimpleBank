@@ -158,12 +158,12 @@
                                                Text="{Binding FathersName}"
                                                Width="109"
                                                Margin="3 0 0 0"/>
-                                        <TextBlock x:Name="Phone" 
-                                               Text="{Binding Phone}" 
+                                        <TextBlock x:Name="TotalSalaryAccount" 
+                                               Text="{Binding TotalSalaryAccount}" 
                                                Width="106"
                                                Margin="3 0 0 0"/>
-                                        <TextBlock x:Name="PassportNumber" 
-                                               Text="{Binding PassportNumber}"
+                                        <TextBlock x:Name="TotalDepositAccount" 
+                                               Text="{Binding TotalDepositAccount}"
                                                Width="105"
                                                Margin="3 0 0 0"/>
                                     </StackPanel>

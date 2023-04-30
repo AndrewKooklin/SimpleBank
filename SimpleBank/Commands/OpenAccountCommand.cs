@@ -82,11 +82,17 @@ namespace SimpleBank.Commands
                                 SqliteCmd = connection.CreateCommand();
                                 SqliteCmd.CommandText = stringQuery;
                                 SqliteCmd.ExecuteNonQuery();
-                                connection.Close();
-                            
 
-                            //App.mainWindow.lbPersonsItems.ItemsSource = _persons;
-                            //App.mainWindow.lbPersonsItems.Items.Refresh();
+                                stringQuery = "UPDATE Persons SET TotalSalaryAccount=0 WHERE PersonId=" 
+                                                + salaryAccountId + "";
+                                SqliteCmd.CommandText = stringQuery;
+                                SqliteCmd.ExecuteNonQuery();
+                                connection.Close();
+
+                            person = _persons.Single(p => p.PersonId == salaryAccountId);
+                            person.TotalSalaryAccount = 0;
+                            App.mainWindow.lbPersonsItems.ItemsSource = _persons;
+                            App.mainWindow.lbPersonsItems.Items.Refresh();
                         }
                         catch (Exception ex)
                         {
@@ -116,10 +122,18 @@ namespace SimpleBank.Commands
                             SqliteCmd = connection.CreateCommand();
                             SqliteCmd.CommandText = stringQuery;
                             SqliteCmd.ExecuteNonQuery();
+
+                            stringQuery = "UPDATE Persons SET TotalDepositAccount=0 WHERE PersonId="
+                                                + depositAccountId + "";
+                            SqliteCmd.CommandText = stringQuery;
+                            SqliteCmd.ExecuteNonQuery();
                             connection.Close();
 
-                            //App.mainWindow.lbPersonsItems.ItemsSource = _persons;
-                            //App.mainWindow.lbPersonsItems.Items.Refresh();
+                            person = _persons.Single(p => p.PersonId == depositAccountId);
+                            person.TotalDepositAccount = 0;
+
+                            App.mainWindow.lbPersonsItems.ItemsSource = _persons;
+                            App.mainWindow.lbPersonsItems.Items.Refresh();
                         }
                         catch (Exception ex)
                         {
