@@ -18,19 +18,19 @@ namespace SimpleBank.Model
             DateDepositOpen = DateTime.Now;
         }
 
-        [Key,Autoincrement]
-        [Unique]
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Key,Autoincrement]
+        //[Unique]
+        //[Required]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("DepositAccountId")]
         public int DepositAccountId { get; set; }
 
         
-        [Column("PersonId")]
-        public int PersonId{ get; set; }
+        //[Column("PersonId")]
+        //public int PersonId{ get; set; }
 
         [Column("DepositTotal")]
-        public int? DepositTotal { get; set; } = 0;
+        public int? DepositTotal { get; set; } = null;
 
         [Column("DateDepositOpen")]
         public DateTime DateDepositOpen { get; set; }

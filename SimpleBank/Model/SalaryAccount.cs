@@ -18,18 +18,18 @@ namespace SimpleBank.Model
             DateSalaryOpen = DateTime.Now;
         }
 
-        [Key,Autoincrement]
-        [Unique]
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[Key,Autoincrement]
+        //[Unique]
+        //[Required]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("SalaryAccountId")]
         public int SalaryAccountId { get; set; }
 
-        [Column("PersonId")]
-        public int PersonId { get; set; }
+        //[Column("PersonId")]
+        //public int PersonId { get; set; }
 
         [Column("SalaryTotal")]
-        public int? SalaryTotal { get; set; } = 0;
+        public int? SalaryTotal { get; set; } = null;
 
         [Column("DateSalaryOpen")]
         public DateTime DateSalaryOpen { get; set; }

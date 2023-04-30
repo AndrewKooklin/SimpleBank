@@ -129,14 +129,22 @@ namespace SimpleBank.Model
             }
         }
 
-        [ForeignKey("PersonDepositAccount")]
-        public int? DepositAccountId { get; set; } = null;
+        
+        [Column("TotalSalaryAccount")]
+        public int? TotalSalaryAccount { get; set; }
 
-        public DepositAccount PersonDepositAccount { get; set; }
+        [Column("TotalDepositAccount")]
+        public int? TotalDepositAccount { get; set; }
 
-        [ForeignKey("PersonSalaryAccount")]
-        public int? SalaryAccountId { get; set; } = null;
+        //[Column("PersonSalaryAccount")]
+        //public SalaryAccount PersonSalaryAccount { get; set; }
 
-        public SalaryAccount PersonSalaryAccount { get; set; }
+        //[ForeignKey("PersonDepositAccount")]
+
+
+        //[Column("PersonDepositAccount")]
+        //public DepositAccount PersonDepositAccount { get; set; }
+
+
     }
 }

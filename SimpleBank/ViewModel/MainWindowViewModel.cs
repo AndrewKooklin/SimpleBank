@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -91,7 +92,13 @@ namespace SimpleBank.ViewModel
 
         public ICommand ClearPersonCommand { get; set; }
 
+        public ICommand OpenAccountCommand { get; set; }
+
+        public ICommand CloseAccountCommand { get; set; }
+
         public int? SelectedIndexPerson { get; set; }
+
+        public Person SelectedItemPerson { get; set; }
 
         public Person SelectedPerson 
         {
@@ -99,8 +106,6 @@ namespace SimpleBank.ViewModel
             {
                 if (_selectedPerson == null)
                 {
-                    //var view = (PersonView)RightCurrentView;
-
                     SelectedIndexPerson = null;
 
                     return null;
@@ -123,6 +128,30 @@ namespace SimpleBank.ViewModel
                     view.tbPhone.Text = _selectedPerson.Phone;
                     view.tbPassportNumber.Text = _selectedPerson.PassportNumber;
                 }
+
+                else if (RightCurrentView is AccountActionView)
+                {
+                    var view = (AccountActionView)RightCurrentView;
+
+                    if (_selectedPerson != null) 
+                    { 
+                        //SelectedItemPerson = 
+
+                        string firstLetterFirstName = _selectedPerson.FirstName
+                                                                    .ToUpper()
+                                                                    .Substring(0,1);
+                        string firstLetterFathersName = _selectedPerson.FathersName
+                                                                      .ToUpper()
+                                                                      .Substring(0, 1);
+
+                        view.tbFIO.Text  = _selectedPerson.LastName + " "
+                                        + firstLetterFirstName + "." 
+                                        + firstLetterFathersName + ".";
+
+                        view.tbAccountId.Text = _selectedPerson.PersonId.ToString();
+                    }
+                }
+
                 return _selectedPerson;
             }
             set
@@ -161,6 +190,8 @@ namespace SimpleBank.ViewModel
                                                           _mainWindow);
 
             ClearPersonCommand = new ClearPersonCommand();
+
+            OpenAccountCommand = new OpenAccountCommand(Persons);
         }
 
         
