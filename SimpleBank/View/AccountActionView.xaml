@@ -74,7 +74,9 @@
                         CommandParameter="{Binding ElementName=spAccountAction, Mode=OneWay}"
                         Style="{StaticResource ClientButton}"/>
                 <Button Content="Закрыть"
-                    Style="{StaticResource ClientButton}"/>
+                        Command="{Binding CloseAccountCommand, Mode=OneWay, Source={StaticResource MainWindowViewModel}}"
+                        CommandParameter="{Binding ElementName=spAccountAction, Mode=OneWay}"
+                        Style="{StaticResource ClientButton}"/>
             </StackPanel>
             <TextBlock Text="Действия по счету"
                        Style="{StaticResource ClientTextBlockHeader}"/>
@@ -85,7 +87,8 @@
             <StackPanel Orientation="Horizontal"
                         Width="140">
                 <Button Content="Внести"
-                        
+                        Command="{Binding PutMoneyCommand, Mode=OneWay, Source={StaticResource MainWindowViewModel}}"
+                        CommandParameter="{Binding ElementName=spAccountAction, Mode=OneWay}"
                         Style="{StaticResource ClientButton}"/>
                 <Button Content="Снять"
                     Style="{StaticResource ClientButton}"/>

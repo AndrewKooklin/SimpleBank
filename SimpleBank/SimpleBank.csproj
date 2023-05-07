@@ -204,7 +204,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\CloseAccountCommand.cs" />
     <Compile Include="Commands\OpenAccountCommand.cs" />
+    <Compile Include="Commands\PutMoneyCommand.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>

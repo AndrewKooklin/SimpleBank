@@ -96,6 +96,10 @@ namespace SimpleBank.ViewModel
 
         public ICommand CloseAccountCommand { get; set; }
 
+        public ICommand PutMoneyCommand { get; set; }
+
+        public ICommand WithdrawMoneyCommand { get; set; }
+
         public int? SelectedIndexPerson { get; set; }
 
         public Person SelectedItemPerson { get; set; }
@@ -192,6 +196,10 @@ namespace SimpleBank.ViewModel
             ClearPersonCommand = new ClearPersonCommand();
 
             OpenAccountCommand = new OpenAccountCommand(Persons);
+
+            CloseAccountCommand = new CloseAccountCommand(Persons);
+
+            PutMoneyCommand = new PutMoneyCommand(Persons);
         }
 
         
