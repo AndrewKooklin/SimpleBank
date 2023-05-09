@@ -27,6 +27,7 @@ namespace SimpleBank.ViewModel
         private MainWindowViewModel _mainWindowViewModel;
         private MainWindow _mainWindow;
         private Person _selectedPerson;
+        private int _selectedCount = 0;
 
         ErrorMessage errorMessage = new ErrorMessage();
 
@@ -100,6 +101,10 @@ namespace SimpleBank.ViewModel
 
         public ICommand WithdrawMoneyCommand { get; set; }
 
+        public ICommand TransactionWithSelfAccountsCommand { get; set; }
+
+        public ICommand TransactionBetweenClientsCommand { get; set; }
+
         public int? SelectedIndexPerson { get; set; }
 
         public Person SelectedItemPerson { get; set; }
@@ -136,11 +141,9 @@ namespace SimpleBank.ViewModel
                 else if (RightCurrentView is AccountActionView)
                 {
                     var view = (AccountActionView)RightCurrentView;
-
+                    
                     if (_selectedPerson != null) 
-                    { 
-                        //SelectedItemPerson = 
-
+                    {  
                         string firstLetterFirstName = _selectedPerson.FirstName
                                                                     .ToUpper()
                                                                     .Substring(0,1);
@@ -153,6 +156,69 @@ namespace SimpleBank.ViewModel
                                         + firstLetterFathersName + ".";
 
                         view.tbAccountId.Text = _selectedPerson.PersonId.ToString();
+
+
+                    }
+                }
+
+                else if (RightCurrentView is TransactionWithSelfView)
+                {
+                    var view = (TransactionWithSelfView)RightCurrentView;
+
+                    if (_selectedPerson != null)
+                    {
+                        string firstLetterFirstName = _selectedPerson.FirstName
+                                                                    .ToUpper()
+                                                                    .Substring(0, 1);
+                        string firstLetterFathersName = _selectedPerson.FathersName
+                                                                      .ToUpper()
+                                                                      .Substring(0, 1);
+
+                        view.tbFIO.Text = _selectedPerson.LastName + " "
+                                        + firstLetterFirstName + "."
+                                        + firstLetterFathersName + ".";
+
+                        view.tbAccountId.Text = _selectedPerson.PersonId.ToString();
+                    }
+                }
+
+                else if (RightCurrentView is TransactionBetweenClientsView)
+                {
+                    var view = (TransactionBetweenClientsView)RightCurrentView;
+
+                    if (_selectedPerson != null && _selectedCount == 0)
+                    {
+                        string firstLetterFirstName = _selectedPerson.FirstName
+                                                                    .ToUpper()
+                                                                    .Substring(0, 1);
+                        string firstLetterFathersName = _selectedPerson.FathersName
+                                                                      .ToUpper()
+                                                                      .Substring(0, 1);
+
+                        view.tbFIOFrom.Text = _selectedPerson.LastName + " "
+                                        + firstLetterFirstName + "."
+                                        + firstLetterFathersName + ".";
+
+                        view.tbAccountIdFrom.Text = _selectedPerson.PersonId.ToString();
+
+                        _selectedCount++;
+                    }
+                    else if(_selectedPerson != null && _selectedCount == 1)
+                    {
+                        string firstLetterFirstName = _selectedPerson.FirstName
+                                                                    .ToUpper()
+                                                                    .Substring(0, 1);
+                        string firstLetterFathersName = _selectedPerson.FathersName
+                                                                      .ToUpper()
+                                                                      .Substring(0, 1);
+
+                        view.tbFIOTo.Text = _selectedPerson.LastName + " "
+                                        + firstLetterFirstName + "."
+                                        + firstLetterFathersName + ".";
+
+                        view.tbAccountIdTo.Text = _selectedPerson.PersonId.ToString();
+
+                        _selectedCount = 0;
                     }
                 }
 
@@ -200,6 +266,12 @@ namespace SimpleBank.ViewModel
             CloseAccountCommand = new CloseAccountCommand(Persons);
 
             PutMoneyCommand = new PutMoneyCommand(Persons);
+
+            WithdrawMoneyCommand = new WithdrawMoneyCommand(Persons);
+
+            TransactionWithSelfAccountsCommand = new TransactionWithSelfAccountsCommand(Persons);
+
+            TransactionBetweenClientsCommand = new TransactionBetweenClientsCommand(Persons);
         }
 
         

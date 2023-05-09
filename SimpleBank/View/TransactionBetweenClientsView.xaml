@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SimpleBank.View"
+             xmlns:viewModel="clr-namespace:SimpleBank.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
 
@@ -39,11 +40,18 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid.Resources>
+            <viewModel:MainWindowViewModel x:Key="MainWindowViewModel"/>
+        </Grid.Resources>
         <StackPanel x:Name="spAccountAction"
                     Margin="0 5 0 0">
             <TextBlock Text="Отправитель"
                        Style="{StaticResource TransactionBetweenClientsTextBlockHeader}"/>
-            <TextBlock Text="ФИО Отправителя"
+            <TextBlock x:Name="tbAccountIdFrom"
+                       Text=""
+                       Visibility="Collapsed"></TextBlock>
+            <TextBlock x:Name="tbFIOFrom"
+                       Text=""
                        Style="{StaticResource TransactionBetweenClientsTextBlock}"
                        Background="Lavender"/>
             <TextBlock Text="Со счета"
@@ -55,7 +63,11 @@
             </ComboBox>
             <TextBlock Text="Получатель"
                        Style="{StaticResource TransactionBetweenClientsTextBlockHeader}"/>
-            <TextBlock Text="ФИО Получателя"
+            <TextBlock x:Name="tbAccountIdTo"
+                       Text=""
+                       Visibility="Collapsed"></TextBlock>
+            <TextBlock x:Name="tbFIOTo"
+                       Text=""
                        Style="{StaticResource TransactionBetweenClientsTextBlock}"
                        Background="Lavender"/>
             <TextBlock Text="На счет"
@@ -71,6 +83,8 @@
                      Style="{StaticResource TransactionBetweenClientsTextBox}"/>
             <StackPanel Orientation="Horizontal">
                 <Button Content="Перевести"
+                        Command="{Binding TransactionBetweenClientsCommand, Source={StaticResource MainWindowViewModel}}"
+                        CommandParameter="{Binding ElementName=spAccountAction, Mode=OneWay}"
                     Style="{StaticResource TransactionBetweenClientsButton}"/>
             </StackPanel>
 

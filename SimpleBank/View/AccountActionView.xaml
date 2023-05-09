@@ -91,7 +91,9 @@
                         CommandParameter="{Binding ElementName=spAccountAction, Mode=OneWay}"
                         Style="{StaticResource ClientButton}"/>
                 <Button Content="Снять"
-                    Style="{StaticResource ClientButton}"/>
+                        Command="{Binding WithdrawMoneyCommand, Mode=OneWay, Source={StaticResource MainWindowViewModel}}"
+                        CommandParameter="{Binding ElementName=spAccountAction, Mode=OneWay}"
+                        Style="{StaticResource ClientButton}"/>
             </StackPanel>
 
         </StackPanel>

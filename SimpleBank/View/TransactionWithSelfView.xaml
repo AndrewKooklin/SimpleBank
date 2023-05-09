@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SimpleBank.View"
+             xmlns:viewModel="clr-namespace:SimpleBank.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="300">
     
@@ -39,11 +40,18 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid.Resources>
+            <viewModel:MainWindowViewModel x:Key="MainWindowViewModel"/>
+        </Grid.Resources>
         <StackPanel x:Name="spAccountAction"
                     Margin="0 5 0 0">
             <TextBlock Text="Клиент"
                        Style="{StaticResource TransactionTextBlockHeader}"/>
-            <TextBlock Text="ФИО Клиента"
+            <TextBlock x:Name="tbAccountId"
+                       Text=""
+                       Visibility="Collapsed"></TextBlock>
+            <TextBlock x:Name="tbFIO"
+                       Text=""
                        Style="{StaticResource TransactionTextBlock}"
                        Background="Lavender"/>
             <TextBlock Text="Со счета"
@@ -66,7 +74,9 @@
                      Style="{StaticResource TransactionTextBox}"/>
             <StackPanel Orientation="Horizontal">
                 <Button Content="Перевести"
-                    Style="{StaticResource TransactionButton}"/>
+                        Command="{Binding TransactionWithSelfAccountsCommand, Mode=OneWay, Source={StaticResource MainWindowViewModel}}"
+                        CommandParameter="{Binding ElementName=spAccountAction, Mode=OneWay}"
+                        Style="{StaticResource TransactionButton}"/>
             </StackPanel>
 
         </StackPanel>
