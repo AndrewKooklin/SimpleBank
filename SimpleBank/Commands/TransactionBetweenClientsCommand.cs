@@ -15,13 +15,16 @@ namespace SimpleBank.Commands
     public class TransactionBetweenClientsCommand : ICommand
     {
         ObservableCollection<Person> _persons;
-        Person person = new Person();
-        int totalSalary;
-        int totalDeposit;
-        int newTotalSalary;
-        int newTotalDeposit;
-        bool convertTotalSalary;
-        bool convertTotalDeposit;
+        Person personSend = new Person();
+        Person personRecieve = new Person();
+        int totalFrom;
+        int totalTo;
+        int newTotalFrom;
+        int newTotalTo;
+        bool convertTotalFrom;
+        bool convertTotalTo;
+        string totalAccountFrom = "";
+        string totalAccountTo = "";
         string stringQuery = "";
         string connecionString = @"Data Source=C:\repos\SimpleBank\SimpleBank\Data\SimpleBank.db;New=False;Compress=True;";
         SQLiteCommand SqliteCmd = new SQLiteCommand();
@@ -56,7 +59,7 @@ namespace SimpleBank.Commands
                 bool checkIdFrom = Int32.TryParse(textBlockAccountIdFrom.Text, out int accountIdFrom);
                 if (checkIdFrom)
                 {
-                    person = _persons.Single(p => p.PersonId == accountIdFrom);
+                    personSend = _persons.Single(p => p.PersonId == accountIdFrom);
                 }
                 else
                 {
@@ -71,24 +74,14 @@ namespace SimpleBank.Commands
                     return;
                 }
 
-                bool checkIdTo = Int32.TryParse(textBlockAccountIdFrom.Text, out int accountIdTo);
+                bool checkIdTo = Int32.TryParse(textBlockAccountIdTo.Text, out int accountIdTo);
                 if (checkIdTo)
                 {
-                    person = _persons.Single(p => p.PersonId == accountIdTo);
+                    personRecieve = _persons.Single(p => p.PersonId == accountIdTo);
                 }
                 else
                 {
                     errorMessage.MessageShow("Некорректный Id");
-                    return;
-                }
-                if (person.TotalSalaryAccount == null)
-                {
-                    errorMessage.MessageShow("Откройте зарплатный счет и внесите сумму");
-                    return;
-                }
-                else if (person.TotalDepositAccount == null)
-                {
-                    errorMessage.MessageShow("Откройте депозитный счет и внесите сумму");
                     return;
                 }
 
@@ -99,12 +92,48 @@ namespace SimpleBank.Commands
                     errorMessage.MessageShow("Выберите тип счета списания");
                     return;
                 }
+                if (chooseAccountFrom.Content.Equals("Зарплатный"))
+                {
+                    totalAccountFrom = "TotalSalaryAccount";
+                    if (personSend.TotalSalaryAccount == null)
+                    {
+                        errorMessage.MessageShow("Откройте зарплатный счет отправителя и внесите сумму");
+                        return;
+                    }
+                }
+                else if (chooseAccountFrom.Content.Equals("Депозитный"))
+                {
+                    totalAccountFrom = "TotalDepositAccount";
+                    if (personSend.TotalDepositAccount == null)
+                    {
+                        errorMessage.MessageShow("Откройте депозитный счет отправителя и внесите сумму");
+                        return;
+                    }
+                }
                 var comboBoxAccountTypeTo = (ComboBox)childrenStackPanel[9];
                 var chooseAccountTo = (ComboBoxItem)comboBoxAccountTypeTo.SelectedItem;
                 if (chooseAccountTo == null)
                 {
                     errorMessage.MessageShow("Выберите тип счета зачисления");
                     return;
+                }
+                if (chooseAccountTo.Content.Equals("Зарплатный"))
+                {
+                    totalAccountTo = "TotalSalaryAccount";
+                    if (personRecieve.TotalSalaryAccount == null)
+                    {
+                        errorMessage.MessageShow("Откройте зарплатный счет получателя и внесите сумму");
+                        return;
+                    }
+                }
+                else if (chooseAccountTo.Content.Equals("Депозитный"))
+                {
+                    totalAccountTo = "TotalDepositAccount";
+                    if (personRecieve.TotalDepositAccount == null)
+                    {
+                        errorMessage.MessageShow("Откройте депозитный счет получателя и внесите сумму");
+                        return;
+                    }
                 }
 
                 var textBoxInputNumber = (TextBox)childrenStackPanel[11];
@@ -121,20 +150,20 @@ namespace SimpleBank.Commands
                     SQLiteConnection connection = new SQLiteConnection(connecionString);
                     connection.Open();
 
-                    stringQuery = "SELECT TotalSalaryAccount FROM Persons WHERE PersonId=" + accountIdFrom + "";
+                    stringQuery = "SELECT " + totalAccountFrom + " FROM Persons WHERE PersonId=" + accountIdFrom + "";
 
                     SqliteCmd.Connection = connection;
                     SqliteCmd.CommandText = stringQuery;
-                    var resultTotalSalary = SqliteCmd.ExecuteScalar();
+                    var resultTotalFrom = SqliteCmd.ExecuteScalar();
 
-                    convertTotalSalary = Int32.TryParse(resultTotalSalary.ToString(), out totalSalary);
+                    convertTotalFrom = Int32.TryParse(resultTotalFrom.ToString(), out totalFrom);
 
-                    stringQuery = "SELECT TotalDepositAccount FROM Persons WHERE PersonId=" + accountIdFrom + "";
+                    stringQuery = "SELECT " + totalAccountTo + " FROM Persons WHERE PersonId=" + accountIdTo + "";
                     SqliteCmd.CommandText = stringQuery;
-                    var resultTotalDeposit = SqliteCmd.ExecuteScalar();
+                    var resultTotalTo = SqliteCmd.ExecuteScalar();
                     connection.Close();
 
-                    convertTotalDeposit = Int32.TryParse(resultTotalDeposit.ToString(), out totalDeposit);
+                    convertTotalTo = Int32.TryParse(resultTotalTo.ToString(), out totalTo);
                 }
                 catch (Exception ex)
                 {
@@ -142,76 +171,74 @@ namespace SimpleBank.Commands
                     errorMessage.MessageShow("Не удалось подключиться к базе данных");
                 }
 
-                switch (chooseAccountFrom.Content.ToString())
+
+                try
                 {
-                    case "Зарплатный":
-                        try
-                        {
-                            SQLiteConnection connection = new SQLiteConnection(connecionString);
-                            connection.Open();
-                            SqliteCmd.Connection = connection;
+                    SQLiteConnection connection = new SQLiteConnection(connecionString);
+                    connection.Open();
+                    SqliteCmd.Connection = connection;
 
-                            if (convertTotalSalary && parseTextBoxInputNumber)
-                            {
-                                newTotalSalary = totalSalary - inputNumber;
-                                newTotalDeposit = totalDeposit + inputNumber;
-                                if (newTotalSalary < 0)
-                                {
-                                    errorMessage.MessageShow("Введенная сумма больше остатка по счету списания");
-                                    connection.Close();
-                                    return;
-                                }
-                                else if (newTotalDeposit > 2100000000)
-                                {
-                                    errorMessage.MessageShow("Максимальная сумма на счете 2100000000");
-                                    connection.Close();
-                                    return;
-                                }
-                                person.TotalDepositAccount = newTotalDeposit;
-                            }
+                    if (convertTotalFrom && convertTotalFrom && parseTextBoxInputNumber)
+                    {
+                        newTotalFrom = totalFrom - inputNumber;
+                        newTotalTo = totalTo + inputNumber;
+                        if (newTotalFrom < 0)
+                        {
+                            errorMessage.MessageShow("Введенная сумма больше остатка по счету списания");
+                            connection.Close();
+                            return;
+                        }
+                        else if (newTotalTo > 2100000000)
+                        {
+                            errorMessage.MessageShow("Максимальная сумма на счете 2100000000");
+                            connection.Close();
+                            return;
+                        }
+                        
+                        if (chooseAccountTo.Content.Equals("Зарплатный"))
+                        {
+                            personRecieve.TotalSalaryAccount = newTotalTo;
+                        }
+                        else if (chooseAccountTo.Content.Equals("Депозитный"))
+                        {
+                            personRecieve.TotalDepositAccount = newTotalTo;
+                        }
+                        
+                    }
 
-                            if (newTotalSalary >= 0)
-                            {
-                                stringQuery = "UPDATE Persons SET TotalSalaryAccount=" + newTotalSalary + " WHERE PersonId=" + accountIdFrom + "";
-                                SqliteCmd.CommandText = stringQuery;
-                                SqliteCmd.ExecuteNonQuery();
-                                stringQuery = "UPDATE Persons SET TotalDepositAccount=" + newTotalDeposit + " WHERE PersonId=" + accountIdFrom + "";
-                                SqliteCmd.CommandText = stringQuery;
-                                SqliteCmd.ExecuteNonQuery();
-                                connection.Close();
-                                person.TotalSalaryAccount = newTotalSalary;
-                            }
-                            else
-                            {
-                                errorMessage.MessageShow("Введенная сумма превышает остаток по счету списания");
-                                connection.Close();
-                                return;
-                            }
+                    if (newTotalFrom >= 0)
+                    {
+                        stringQuery = "UPDATE Persons SET "+totalAccountFrom+"=" + newTotalFrom + " WHERE PersonId=" + accountIdFrom + "";
+                        SqliteCmd.CommandText = stringQuery;
+                        SqliteCmd.ExecuteNonQuery();
+                        stringQuery = "UPDATE Persons SET " + totalAccountTo + "=" + newTotalTo + " WHERE PersonId=" + accountIdTo + "";
+                        SqliteCmd.CommandText = stringQuery;
+                        SqliteCmd.ExecuteNonQuery();
+                        connection.Close();
 
-                            App.mainWindow.lbPersonsItems.ItemsSource = _persons;
-                            App.mainWindow.lbPersonsItems.Items.Refresh();
-                        }
-                        catch (Exception ex)
+                        if (chooseAccountFrom.Content.Equals("Зарплатный"))
                         {
-                            Console.WriteLine(ex.Message);
-                            errorMessage.MessageShow("Не удалось подключиться к базе данных");
+                            personSend.TotalSalaryAccount = newTotalFrom;
                         }
-                        break;
-                    case "Депозитный":
-                        try
+                        else if (chooseAccountFrom.Content.Equals("Депозитный"))
                         {
-                            App.mainWindow.lbPersonsItems.ItemsSource = _persons;
-                            App.mainWindow.lbPersonsItems.Items.Refresh();
+                            personSend.TotalDepositAccount = newTotalFrom;
                         }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                            errorMessage.MessageShow("Не удалось подключиться к базе данных");
-                        }
-                        break;
-                    default:
-                        errorMessage.MessageShow("Неопределенный тип счета");
-                        break;
+                    }
+                    else
+                    {
+                        errorMessage.MessageShow("Введенная сумма превышает остаток по счету списания");
+                        connection.Close();
+                        return;
+                    }
+
+                    App.mainWindow.lbPersonsItems.ItemsSource = _persons;
+                    App.mainWindow.lbPersonsItems.Items.Refresh();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    errorMessage.MessageShow("Не удалось подключиться к базе данных");
                 }
             }
         }
