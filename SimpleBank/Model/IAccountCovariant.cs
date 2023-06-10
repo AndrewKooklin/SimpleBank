@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace SimpleBank.Model
 {
-    public interface IAccount
+    public interface IAccountCovariant<out T>
     {
-        void PutMoney(decimal sum);
-
-        decimal WithdrawMoney(decimal sum);
+        T PutMoney(Account account, int sum);
     }
 }

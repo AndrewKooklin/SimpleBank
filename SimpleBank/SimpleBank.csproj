@@ -213,6 +213,7 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\IAccountCovariant.cs" />
     <Compile Include="Storage\PersonStorage.cs" />
     <Compile Include="ViewModel\AccountActionViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
@@ -250,7 +251,6 @@
     <Compile Include="Data\SimpleBankContext.cs" />
     <Compile Include="Help\CheckParse.cs" />
     <Compile Include="Help\ErrorMessage.cs" />
-    <Compile Include="Help\ITransactionWithAccount.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -280,7 +280,6 @@
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\DepositAccount.cs" />
-    <Compile Include="Model\IAccount.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\SalaryAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

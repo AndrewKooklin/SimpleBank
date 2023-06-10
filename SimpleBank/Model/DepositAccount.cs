@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace SimpleBank.Model
 {
     [Table("DepositAccounts")]
-    public class DepositAccount
+    public class DepositAccount : Account, IAccountCovariant<Account>
     {
         public DepositAccount()
         {
@@ -14,7 +14,7 @@ namespace SimpleBank.Model
 
         public DepositAccount(int total)
         {
-            DepositTotal = 0;
+            Total = 0;
             DateDepositOpen = DateTime.Now;
         }
 
@@ -29,10 +29,16 @@ namespace SimpleBank.Model
         //[Column("PersonId")]
         //public int PersonId{ get; set; }
 
-        [Column("DepositTotal")]
-        public int? DepositTotal { get; set; } = null;
+        //[Column("DepositTotal")]
+        //public int? DepositTotal { get; set; } = null;
 
         [Column("DateDepositOpen")]
         public DateTime DateDepositOpen { get; set; }
+
+        public Account PutMoney(Account account, int sum)
+        {
+            account.Total += sum;
+            return account;
+        }
     }
 }
