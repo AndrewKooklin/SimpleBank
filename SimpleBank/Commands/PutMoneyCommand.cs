@@ -13,14 +13,16 @@ using System.Windows.Input;
 
 namespace SimpleBank.Commands
 {
+    /// <summary>
+    /// Команда внесения денег на счет
+    /// </summary>
     public class PutMoneyCommand : ICommand
     {
         ObservableCollection<Person> _persons;
-        private SimpleBankContext _db;
-        private SalaryAccount _salaryAccount;
-        private DepositAccount _depositAccount;
+        private SalaryAccount salaryAccount;
+        private DepositAccount depositAccount;
         Person person = new Person();
-        int newTotal;
+        private Account account = new Account();
 
         public PutMoneyCommand(ObservableCollection<Person> persons)
         {
@@ -107,25 +109,29 @@ namespace SimpleBank.Commands
                             //
 
                             bool convertTotalSalary = Int32.TryParse(result.ToString(), out int totalSalary);
+                            salaryAccount = new SalaryAccount
+                            {
+                                Total = totalSalary
+                            };
                             if (convertTotalSalary && parseTextBoxInputNumber)
                             {
-                                newTotal = totalSalary + inputNumber;
-                                if(newTotal > 2100000000 || newTotal < 0)
+                                account = salaryAccount.PutMoney(salaryAccount, inputNumber);
+                                if(account.Total > 2100000000 || account.Total < 0)
                                 {
                                     errorMessage.MessageShow("Максимальная сумма на счете 2100000000");
                                     connection.Close();
                                     return;
                                 }
-                                stringQuery = "UPDATE Persons SET TotalSalaryAccount="+newTotal+" WHERE PersonId=" + accountId + "";
+                                stringQuery = "UPDATE Persons SET TotalSalaryAccount="+ account.Total + " WHERE PersonId=" + accountId + "";
                                 SqliteCmd.CommandText = stringQuery;
                                 SqliteCmd.ExecuteNonQuery();
                                 connection.Close();
                             }
 
                             //person = _persons.Single(p => p.PersonId == accountId);
-                            if (person.TotalSalaryAccount != null && newTotal < 2100000000 && newTotal > 0)
+                            if (person.TotalSalaryAccount != null && account.Total < 2100000000 && account.Total > 0)
                             {
-                                person.TotalSalaryAccount = newTotal;
+                                person.TotalSalaryAccount = account.Total;
                             }
                             else
                             {
@@ -172,25 +178,31 @@ namespace SimpleBank.Commands
                             //
 
                             bool convertTotalDeposit = Int32.TryParse(result.ToString(), out int totalDeposit);
+                            depositAccount = new DepositAccount
+                            {
+                                Total = totalDeposit
+                            };
                             if (convertTotalDeposit && parseTextBoxInputNumber)
                             {
-                                newTotal = totalDeposit + inputNumber;
-                                if (newTotal > 2100000000 || newTotal < 0)
+                                account = depositAccount.PutMoney(depositAccount, inputNumber);
+                                if (depositAccount.Total > 2100000000 || depositAccount.Total < 0)
                                 {
                                     errorMessage.MessageShow("Максимальная сумма на счете 2100000000");
                                     connection.Close();
                                     return;
                                 }
-                                stringQuery = "UPDATE Persons SET TotalDepositAccount=" + newTotal + " WHERE PersonId=" + accountId + "";
+                                stringQuery = "UPDATE Persons SET TotalDepositAccount=" + account.Total + " WHERE PersonId=" + accountId + "";
                                 SqliteCmd.CommandText = stringQuery;
                                 SqliteCmd.ExecuteNonQuery();
                                 connection.Close();
                             }
 
                             //person = _persons.Single(p => p.PersonId == depositAccountId);
-                            if (person.TotalDepositAccount != null && newTotal < 2100000000 && newTotal > 0)
+                            if (person.TotalDepositAccount != null && 
+                                account.Total < 2100000000 && 
+                                account.Total > 0)
                             {
-                                person.TotalDepositAccount = newTotal;
+                                person.TotalDepositAccount = account.Total;
                             }
                             else
                             {

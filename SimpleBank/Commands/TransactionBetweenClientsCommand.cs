@@ -12,15 +12,24 @@ using System.Windows.Input;
 
 namespace SimpleBank.Commands
 {
+    /// <summary>
+    /// Команда перевода денег между счетами клиентов
+    /// </summary>
     public class TransactionBetweenClientsCommand : ICommand
     {
         ObservableCollection<Person> _persons;
         Person personSend = new Person();
         Person personRecieve = new Person();
+        private SalaryAccount salaryAccountFrom = new SalaryAccount();
+        private SalaryAccount salaryAccountTo = new SalaryAccount();
+        private DepositAccount depositAccountFrom = new DepositAccount();
+        private DepositAccount depositAccountTo = new DepositAccount();
+        private Account account = new Account();
+        private Account accountFrom = new Account();
+        private Account accountTo = new Account();
+        private TransactionBetweenClients tbc = new TransactionBetweenClients();
         int totalFrom;
         int totalTo;
-        int newTotalFrom;
-        int newTotalTo;
         bool convertTotalFrom;
         bool convertTotalTo;
         string totalAccountFrom = "";
@@ -95,6 +104,7 @@ namespace SimpleBank.Commands
                 if (chooseAccountFrom.Content.Equals("Зарплатный"))
                 {
                     totalAccountFrom = "TotalSalaryAccount";
+                    accountFrom = salaryAccountFrom;
                     if (personSend.TotalSalaryAccount == null)
                     {
                         errorMessage.MessageShow("Откройте зарплатный счет отправителя и внесите сумму");
@@ -104,6 +114,7 @@ namespace SimpleBank.Commands
                 else if (chooseAccountFrom.Content.Equals("Депозитный"))
                 {
                     totalAccountFrom = "TotalDepositAccount";
+                    accountFrom = depositAccountFrom;
                     if (personSend.TotalDepositAccount == null)
                     {
                         errorMessage.MessageShow("Откройте депозитный счет отправителя и внесите сумму");
@@ -120,6 +131,7 @@ namespace SimpleBank.Commands
                 if (chooseAccountTo.Content.Equals("Зарплатный"))
                 {
                     totalAccountTo = "TotalSalaryAccount";
+                    accountTo = salaryAccountTo;
                     if (personRecieve.TotalSalaryAccount == null)
                     {
                         errorMessage.MessageShow("Откройте зарплатный счет получателя и внесите сумму");
@@ -129,6 +141,7 @@ namespace SimpleBank.Commands
                 else if (chooseAccountTo.Content.Equals("Депозитный"))
                 {
                     totalAccountTo = "TotalDepositAccount";
+                    accountTo = depositAccountTo;
                     if (personRecieve.TotalDepositAccount == null)
                     {
                         errorMessage.MessageShow("Откройте депозитный счет получателя и внесите сумму");
@@ -157,6 +170,7 @@ namespace SimpleBank.Commands
                     var resultTotalFrom = SqliteCmd.ExecuteScalar();
 
                     convertTotalFrom = Int32.TryParse(resultTotalFrom.ToString(), out totalFrom);
+                    accountFrom.Total = totalFrom;
 
                     stringQuery = "SELECT " + totalAccountTo + " FROM Persons WHERE PersonId=" + accountIdTo + "";
                     SqliteCmd.CommandText = stringQuery;
@@ -164,6 +178,7 @@ namespace SimpleBank.Commands
                     connection.Close();
 
                     convertTotalTo = Int32.TryParse(resultTotalTo.ToString(), out totalTo);
+                    accountTo.Total = totalTo;
                 }
                 catch (Exception ex)
                 {
@@ -178,17 +193,17 @@ namespace SimpleBank.Commands
                     connection.Open();
                     SqliteCmd.Connection = connection;
 
-                    if (convertTotalFrom && convertTotalFrom && parseTextBoxInputNumber)
+                    if (convertTotalFrom && convertTotalTo && parseTextBoxInputNumber)
                     {
-                        newTotalFrom = totalFrom - inputNumber;
-                        newTotalTo = totalTo + inputNumber;
-                        if (newTotalFrom < 0)
+                        tbc.Transact(accountFrom, accountTo, inputNumber);
+
+                        if (accountFrom.Total < 0)
                         {
                             errorMessage.MessageShow("Введенная сумма больше остатка по счету списания");
                             connection.Close();
                             return;
                         }
-                        else if (newTotalTo > 2100000000)
+                        else if (accountTo.Total > 2100000000)
                         {
                             errorMessage.MessageShow("Максимальная сумма на счете 2100000000");
                             connection.Close();
@@ -197,32 +212,31 @@ namespace SimpleBank.Commands
                         
                         if (chooseAccountTo.Content.Equals("Зарплатный"))
                         {
-                            personRecieve.TotalSalaryAccount = newTotalTo;
+                            personRecieve.TotalSalaryAccount = accountTo.Total;
                         }
                         else if (chooseAccountTo.Content.Equals("Депозитный"))
                         {
-                            personRecieve.TotalDepositAccount = newTotalTo;
-                        }
-                        
+                            personRecieve.TotalDepositAccount = accountTo.Total;
+                        }  
                     }
 
-                    if (newTotalFrom >= 0)
+                    if (accountFrom.Total >= 0)
                     {
-                        stringQuery = "UPDATE Persons SET "+totalAccountFrom+"=" + newTotalFrom + " WHERE PersonId=" + accountIdFrom + "";
+                        stringQuery = "UPDATE Persons SET "+totalAccountFrom+"=" + accountFrom.Total + " WHERE PersonId=" + accountIdFrom + "";
                         SqliteCmd.CommandText = stringQuery;
                         SqliteCmd.ExecuteNonQuery();
-                        stringQuery = "UPDATE Persons SET " + totalAccountTo + "=" + newTotalTo + " WHERE PersonId=" + accountIdTo + "";
+                        stringQuery = "UPDATE Persons SET " + totalAccountTo + "=" + accountTo.Total + " WHERE PersonId=" + accountIdTo + "";
                         SqliteCmd.CommandText = stringQuery;
                         SqliteCmd.ExecuteNonQuery();
                         connection.Close();
 
                         if (chooseAccountFrom.Content.Equals("Зарплатный"))
                         {
-                            personSend.TotalSalaryAccount = newTotalFrom;
+                            personSend.TotalSalaryAccount = accountFrom.Total;
                         }
                         else if (chooseAccountFrom.Content.Equals("Депозитный"))
                         {
-                            personSend.TotalDepositAccount = newTotalFrom;
+                            personSend.TotalDepositAccount = accountFrom.Total;
                         }
                     }
                     else

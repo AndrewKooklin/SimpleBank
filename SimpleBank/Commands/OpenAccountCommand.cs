@@ -14,12 +14,12 @@ using System.Windows.Input;
 
 namespace SimpleBank.Commands
 {
+    /// <summary>
+    /// Команда создания счета
+    /// </summary>
     public class OpenAccountCommand : ICommand
     {
         ObservableCollection<Person> _persons;
-        private SimpleBankContext _db;
-        private SalaryAccount _salaryAccount;
-        private DepositAccount _depositAccount;
         Person person = new Person();
 
         public OpenAccountCommand(ObservableCollection<Person> persons)

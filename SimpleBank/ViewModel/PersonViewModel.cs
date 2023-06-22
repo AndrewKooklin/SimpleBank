@@ -4,6 +4,9 @@ using SimpleBank.Model;
 
 namespace SimpleBank.ViewModel
 {
+    /// <summary>
+    /// Вью модель клиента банка
+    /// </summary>
     public class PersonViewModel : ViewModelBase
     {
         private readonly Person _person;
@@ -29,8 +32,6 @@ namespace SimpleBank.ViewModel
         public PersonViewModel(MainWindowViewModel mainWindowViewModel)
         {
             _mainWindowViewModel = mainWindowViewModel;
-        }
-
-        
+        }   
     }
 }

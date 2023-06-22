@@ -3,12 +3,12 @@ using SQLite.CodeFirst;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Data.SQLite;
-using System.Linq;
 
 namespace SimpleBank.Data
 {
+    /// <summary>
+    /// Установка контекста базы данных
+    /// </summary>
     public class SimpleBankContext : DbContext
     {
         public DbSet<Person> Persons { get; set; }
@@ -27,27 +27,6 @@ namespace SimpleBank.Data
             var sqLiteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<SimpleBankContext>(modelBuilder);
 
             Database.SetInitializer(sqLiteConnectionInitializer);
-
-            //var model = modelBuilder.Build(Database.Connection);
-            //ISqlGenerator sqlGenerator = new SqliteSqlGenerator();
-            //string sql = sqlGenerator.Generate(model.StoreModel);
-
-            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            //base.OnModelCreating(modelBuilder);
-
-            //modelBuilder.Entity<DepositAccount>()
-            //    .HasRequired<Person>(o => o.PersonDepositAccount)
-            //    .WithMany()
-            //    .HasForeignKey(t => t.PersonDepositAccount);
         }
-
-        //private static bool _created = false;
-
-        //public string path = @".\SimpleBank.db";
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlite($"Data Source = {path}");
-        //}
     }
 }

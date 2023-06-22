@@ -43,6 +43,7 @@
         <Grid.Resources>
             <viewModel:MainWindowViewModel x:Key="MainWindowViewModel"/>
         </Grid.Resources>
+        
         <StackPanel x:Name="spAccountAction"
                     Margin="0 5 0 0">
             <TextBlock Text="Отправитель"

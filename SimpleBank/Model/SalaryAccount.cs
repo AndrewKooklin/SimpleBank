@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimpleBank.Model
 {
+    /// <summary>
+    /// Модель зарплатного счета
+    /// </summary>
     [Table("SalaryAccounts")]
     public class SalaryAccount : Account, IAccountCovariant<Account>
     {
@@ -18,20 +21,12 @@ namespace SimpleBank.Model
             DateSalaryOpen = DateTime.Now;
         }
 
-        //int? sum = 0;
-
         //[Key,Autoincrement]
         //[Unique]
         //[Required]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("SalaryAccountId")]
         public int SalaryAccountId { get; set; }
-
-        //[Column("PersonId")]
-        //public int PersonId { get; set; }
-
-        //[Column("SalaryTotal")]
-        //public int? Total { get; set; } = null;
 
         [Column("DateSalaryOpen")]
         public DateTime DateSalaryOpen { get; set; }

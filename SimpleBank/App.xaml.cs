@@ -1,13 +1,7 @@
 ﻿using SimpleBank.Data;
 using SimpleBank.Model;
-using SimpleBank.Storage;
 using SimpleBank.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SimpleBank
@@ -18,7 +12,6 @@ namespace SimpleBank
     public partial class App : Application
     {
         public static SimpleBankContext db;
-        public static PersonStorage personStorage;
         public static MainWindowViewModel _mainWindowViewModel;
         public static PersonViewModel personViewModel;
         public static MainWindow mainWindow;
@@ -33,8 +26,6 @@ namespace SimpleBank
             {
                 Console.WriteLine(ex.Message);
             }
-
-            personStorage = new PersonStorage();
 
             mainWindow = new MainWindow();
 

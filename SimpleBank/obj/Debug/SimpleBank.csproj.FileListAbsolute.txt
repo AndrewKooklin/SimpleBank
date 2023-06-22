@@ -1,7 +1,6 @@
 C:\repos\SimpleBank\SimpleBank\obj\Debug\SimpleBank.csprojAssemblyReference.cache
 C:\repos\SimpleBank\SimpleBank\obj\Debug\MainWindow.g.cs
 C:\repos\SimpleBank\SimpleBank\obj\Debug\View\AccountActionView.g.cs
-C:\repos\SimpleBank\SimpleBank\obj\Debug\View\CreatePersonView.g.cs
 C:\repos\SimpleBank\SimpleBank\obj\Debug\View\PersonView.g.cs
 C:\repos\SimpleBank\SimpleBank\obj\Debug\View\TransactionBetweenClientsView.g.cs
 C:\repos\SimpleBank\SimpleBank\obj\Debug\View\TransactionWithSelfView.g.cs

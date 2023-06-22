@@ -213,19 +213,14 @@
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\IAccountContrvariant.cs" />
     <Compile Include="Model\IAccountCovariant.cs" />
-    <Compile Include="Storage\PersonStorage.cs" />
-    <Compile Include="ViewModel\AccountActionViewModel.cs" />
+    <Compile Include="Model\TransactionBetweenClients.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
-    <Compile Include="ViewModel\TransactionBetweenClientsViewModel.cs" />
-    <Compile Include="ViewModel\TransactionWithSelfViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="View\AccountActionView.xaml.cs">
       <DependentUpon>AccountActionView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\CreatePersonView.xaml.cs">
-      <DependentUpon>CreatePersonView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PersonView.xaml.cs">
       <DependentUpon>PersonView.xaml</DependentUpon>
@@ -236,15 +231,12 @@
     <Compile Include="View\TransactionWithSelfView.xaml.cs">
       <DependentUpon>TransactionWithSelfView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ViewBase.cs" />
     <Compile Include="Commands\ChangePersonCommand.cs" />
     <Compile Include="Commands\ClearPersonCommand.cs" />
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Commands\CreatePersonCommand.cs" />
     <Compile Include="Commands\DeletePersonCommand.cs" />
     <Compile Include="Commands\GetClientsCommand.cs" />
-    <Compile Include="Commands\PersonCommand.cs" />
-    <Compile Include="Commands\SelectedPersonCommand.cs" />
     <Compile Include="Commands\UpdateViewCommand.cs" />
     <Compile Include="Data\Configuration.cs" />
     <Compile Include="Data\MyDbContextInitializer.cs" />
@@ -256,10 +248,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AccountActionView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\CreatePersonView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -5,6 +5,9 @@ using System.Windows;
 
 namespace SimpleBank.Model
 {
+    /// <summary>
+    /// Модель счета
+    /// </summary>
     public class Account : ViewModelBase
     {
         public Account()

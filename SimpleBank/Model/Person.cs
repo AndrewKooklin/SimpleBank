@@ -1,19 +1,18 @@
 ﻿using SimpleBank.Command;
 using SimpleBank.Data;
-using SimpleBank.Storage;
 using SimpleBank.ViewModel;
 using SQLite.CodeFirst;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SimpleBank.Model
 {
+    /// <summary>
+    /// Модель клиента банка
+    /// </summary>
     [Table("Persons")]
     public class Person : ViewModelBase
     {
@@ -28,8 +27,6 @@ namespace SimpleBank.Model
         private string phone;
 
         private string passportNumber;
-
-        PersonStorage _personStorage;
 
         MainWindowViewModel _mainWindowViewModel;
 
@@ -51,11 +48,9 @@ namespace SimpleBank.Model
         }
 
         public Person(SimpleBankContext simpleBankContext,
-                      PersonStorage personStorage,
                       MainWindowViewModel mainWindowViewModel)
         {
             _simpleBankContext = simpleBankContext;
-            _personStorage = personStorage;
             _mainWindowViewModel = mainWindowViewModel;
         }
 
@@ -129,22 +124,10 @@ namespace SimpleBank.Model
             }
         }
 
-        
         [Column("TotalSalaryAccount")]
         public int? TotalSalaryAccount { get; set; }
 
         [Column("TotalDepositAccount")]
         public int? TotalDepositAccount { get; set; }
-
-        //[Column("PersonSalaryAccount")]
-        //public SalaryAccount PersonSalaryAccount { get; set; }
-
-        //[ForeignKey("PersonDepositAccount")]
-
-
-        //[Column("PersonDepositAccount")]
-        //public DepositAccount PersonDepositAccount { get; set; }
-
-
     }
 }

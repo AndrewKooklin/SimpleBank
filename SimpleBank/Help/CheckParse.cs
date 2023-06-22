@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace SimpleBank.Help
 {
+    /// <summary>
+    /// Класс для проверки соответствия телефона и номера паспорта
+    /// </summary>
     public class CheckParse
     {
         public CheckParse()

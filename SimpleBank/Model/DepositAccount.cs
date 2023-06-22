@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SimpleBank.Model
 {
+    /// <summary>
+    /// Класс депозитного счета
+    /// </summary>
     [Table("DepositAccounts")]
     public class DepositAccount : Account, IAccountCovariant<Account>
     {
@@ -24,13 +27,6 @@ namespace SimpleBank.Model
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("DepositAccountId")]
         public int DepositAccountId { get; set; }
-
-        
-        //[Column("PersonId")]
-        //public int PersonId{ get; set; }
-
-        //[Column("DepositTotal")]
-        //public int? DepositTotal { get; set; } = null;
 
         [Column("DateDepositOpen")]
         public DateTime DateDepositOpen { get; set; }

@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SimpleBank.Commands
 {
+    /// <summary>
+    /// Команда перевода денег между собственными счетами клиента
+    /// </summary>
     public class TransactionWithSelfAccountsCommand : ICommand
     {
         ObservableCollection<Person> _persons;
@@ -70,7 +71,7 @@ namespace SimpleBank.Commands
                     errorMessage.MessageShow("Откройте зарплатный счет и внесите сумму");
                     return;
                 }
-                else if (person.TotalDepositAccount == null)
+                if (person.TotalDepositAccount == null)
                 {
                     errorMessage.MessageShow("Откройте депозитный счет и внесите сумму");
                     return;

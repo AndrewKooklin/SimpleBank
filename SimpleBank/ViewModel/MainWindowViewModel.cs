@@ -3,12 +3,10 @@ using SimpleBank.Commands;
 using SimpleBank.Data;
 using SimpleBank.Help;
 using SimpleBank.Model;
-using SimpleBank.Storage;
 using SimpleBank.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Windows.Controls;
@@ -16,6 +14,9 @@ using System.Windows.Input;
 
 namespace SimpleBank.ViewModel
 {
+    /// <summary>
+    /// Вью модель главного окна
+    /// </summary>
     public class MainWindowViewModel : ViewModelBase
     {
         public string NamePage
@@ -28,19 +29,6 @@ namespace SimpleBank.ViewModel
         private MainWindow _mainWindow;
         private Person _selectedPerson;
         private int _selectedCount = 0;
-
-        ErrorMessage errorMessage = new ErrorMessage();
-
-        private PersonStorage _personStorage;
-        
-        private PersonStorage PersonStorage {
-            get { return _personStorage; }
-            set
-            {
-                _personStorage = value;
-                OnPropertyChanged(nameof(PersonStorage));
-            }
-        }
 
         private ObservableCollection<Person> _persons;
 
@@ -156,8 +144,6 @@ namespace SimpleBank.ViewModel
                                         + firstLetterFathersName + ".";
 
                         view.tbAccountId.Text = _selectedPerson.PersonId.ToString();
-
-
                     }
                 }
 
@@ -234,9 +220,7 @@ namespace SimpleBank.ViewModel
 
         public MainWindowViewModel()
         {
-            UpdateViewCommand = new UpdateViewCommand(_db,
-                                                        PersonStorage,
-                                                        this);
+            UpdateViewCommand = new UpdateViewCommand(_db, this);
 
             _mainWindowViewModel = this;
 
@@ -288,7 +272,6 @@ namespace SimpleBank.ViewModel
                         _persons.Add(person);
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -297,7 +280,5 @@ namespace SimpleBank.ViewModel
 
             return _persons;
         }
-
-
     }
 }

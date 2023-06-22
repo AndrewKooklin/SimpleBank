@@ -13,6 +13,9 @@ using System.Windows.Input;
 
 namespace SimpleBank.Commands
 {
+    /// <summary>
+    /// Команда очистки полей ввода
+    /// </summary>
     public class ClearPersonCommand : ICommand
     {
         private SimpleBankContext _db;

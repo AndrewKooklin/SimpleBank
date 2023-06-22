@@ -13,6 +13,9 @@ using System.Windows.Input;
 
 namespace SimpleBank.Commands
 {
+    /// <summary>
+    /// Команда удаления клиента
+    /// </summary>
     public class DeletePersonCommand : ICommand
     {
         private SimpleBankContext _db;

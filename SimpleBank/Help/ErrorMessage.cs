@@ -7,6 +7,9 @@ using System.Windows;
 
 namespace SimpleBank.Help
 {
+    /// <summary>
+    /// Класс для вывода сообщений об ошибках
+    /// </summary>
     public class ErrorMessage
     {
         public ErrorMessage()

@@ -37,15 +37,11 @@
         </Style>
     </UserControl.Resources>
 
-
-
     <Grid x:Name="gPerson">
         <Grid.Resources>
             <model:Person x:Key="Person"/>
             <viewModel:MainWindowViewModel x:Key="MainWindowViewModel"/>
         </Grid.Resources>
-
-        
 
         <StackPanel x:Name="spClient"
                     Margin="0 10 0 0">

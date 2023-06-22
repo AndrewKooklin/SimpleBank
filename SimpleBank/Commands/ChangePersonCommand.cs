@@ -14,6 +14,9 @@ using System.Windows.Input;
 
 namespace SimpleBank.Commands
 {
+    /// <summary>
+    /// Команда изменения данных клиента
+    /// </summary>
     public class ChangePersonCommand : ICommand
     {
         private SimpleBankContext _db;

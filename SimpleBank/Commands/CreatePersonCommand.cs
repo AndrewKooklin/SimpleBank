@@ -2,22 +2,20 @@
 using SimpleBank.Data;
 using SimpleBank.Help;
 using SimpleBank.Model;
-using SimpleBank.Storage;
 using SimpleBank.View;
 using SimpleBank.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SimpleBank.Command
 {
+    /// <summary>
+    /// Команда создания клиента
+    /// </summary>
     public class CreatePersonCommand : ICommand
     {
         private SimpleBankContext _db;

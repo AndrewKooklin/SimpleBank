@@ -6,19 +6,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace SimpleBank.Commands
 {
+    /// <summary>
+    /// Команда снятия денег со счета
+    /// </summary>
     public class WithdrawMoneyCommand : ICommand
     {
         ObservableCollection<Person> _persons;
-        private SimpleBankContext _db;
-        private SalaryAccount _salaryAccount;
-        private DepositAccount _depositAccount;
         Person person = new Person();
         int newTotal;
 

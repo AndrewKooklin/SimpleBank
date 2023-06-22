@@ -11,6 +11,9 @@ using System.Windows.Input;
 
 namespace SimpleBank.Commands
 {
+    /// <summary>
+    /// Команда получения списка клиентов
+    /// </summary>
     public class GetClientsCommand : ICommand
     {
         private MainWindowViewModel _mainWindowViewModel;

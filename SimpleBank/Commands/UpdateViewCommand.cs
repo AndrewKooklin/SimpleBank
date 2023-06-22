@@ -1,24 +1,17 @@
 ﻿using SimpleBank.Data;
-using SimpleBank.Model;
-using SimpleBank.Storage;
 using SimpleBank.View;
 using SimpleBank.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SimpleBank.Commands
 {
+    /// <summary>
+    /// Команда смены окон согласно пунктам меню
+    /// </summary>
     public class UpdateViewCommand : ICommand
     {
-
         private readonly SimpleBankContext _db = App.db;
-
-        private PersonStorage _personStorage;
 
         private MainWindowViewModel _mainWindowViewModel;
 
@@ -28,11 +21,9 @@ namespace SimpleBank.Commands
         }
 
         public UpdateViewCommand( SimpleBankContext simpleBankContext,
-                                  PersonStorage personStorage,
                                   MainWindowViewModel mainWindowViewModel)
         {
             _db = simpleBankContext;
-            _personStorage = personStorage;
             _mainWindowViewModel = mainWindowViewModel;
         }
 

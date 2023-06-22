@@ -11,11 +11,8 @@ namespace SimpleBank.Model
     [NotMapped]
     public class Client : Person
     {
-
-
         private SalaryAccount salaryAccount;
         private DepositAccount depositAccount;
-
 
         public Client( string lastName, string firstName, string fathersName, string phone, string passportNumber) : base( lastName, firstName, fathersName, phone, passportNumber)
         {
@@ -45,8 +42,6 @@ namespace SimpleBank.Model
                     //OnPropertyChanged("DepositAccount");
                 }
             }
-        }
-
-        
+        }   
     }
 }
