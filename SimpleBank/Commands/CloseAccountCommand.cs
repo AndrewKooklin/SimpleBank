@@ -20,6 +20,7 @@ namespace SimpleBank.Commands
     {
         ObservableCollection<Person> _persons;
         Person person = new Person();
+        private string AccountType = "";
 
         public CloseAccountCommand(ObservableCollection<Person> persons)
         {
@@ -55,102 +56,70 @@ namespace SimpleBank.Commands
                     errorMessage.MessageShow("Выберите тип счета");
                     return;
                 }
-
-                switch (choose.Content.ToString())
+                if (choose.Content.Equals("Зарплатный"))
                 {
-                    case "Зарплатный":
-                        try
-                        {
-                            string connecionString = @"Data Source=C:\repos\SimpleBank\SimpleBank\Data\SimpleBank.db;New=False;Compress=True;";
-                            SQLiteConnection connection = new SQLiteConnection(connecionString);
-                            connection.Open();
-                            string stringQuery = "";
-                            bool checkId = Int32.TryParse(textBlockAccountId.Text, out int salaryAccountId);
-                            if (checkId)
-                            {
-                                stringQuery = "SELECT TotalSalaryAccount FROM Persons WHERE PersonId="+salaryAccountId+"";
-                            }
-                            else
-                            {
-                                errorMessage.MessageShow("Некорректный Id");
-                                return;
-                            }
-                            var SqliteCmd = new SQLiteCommand();
-                            SqliteCmd.Connection = connection;
-                            SqliteCmd.CommandText = stringQuery;
-                            var result = SqliteCmd.ExecuteScalar();
-                            connection.Close();
+                    AccountType = "TotalSalaryAccount";
+                }
+                else if (choose.Content.Equals("Депозитный"))
+                {
+                    AccountType = "TotalDepositAccount";
+                }
 
-                            bool convertTotalSalary = Int32.TryParse(result.ToString(), out int totalSalary); 
-                            if ( convertTotalSalary && totalSalary > 0)
-                            {
-                                errorMessage.MessageShow("Для закрытия снимите все деньги со счета");
-                                return;
-                            }
+                try
+                {
+                    string connecionString = @"Data Source=C:\repos\SimpleBank\SimpleBank\Data\SimpleBank.db;New=False;Compress=True;";
+                    SQLiteConnection connection = new SQLiteConnection(connecionString);
+                    connection.Open();
+                    string stringQuery = "";
+                    bool checkId = Int32.TryParse(textBlockAccountId.Text, out int AccountId);
+                    if (checkId)
+                    {
+                        stringQuery = "SELECT " + AccountType + " FROM Persons WHERE PersonId=" + AccountId + "";
+                    }
+                    else
+                    {
+                        errorMessage.MessageShow("Некорректный Id");
+                        return;
+                    }
+                    var SqliteCmd = new SQLiteCommand();
+                    SqliteCmd.Connection = connection;
+                    SqliteCmd.CommandText = stringQuery;
+                    var result = SqliteCmd.ExecuteScalar();
 
-                            person = _persons.Single(p => p.PersonId == salaryAccountId);
-                            if(person.TotalSalaryAccount == 0)
-                            {
-                                person.TotalSalaryAccount = null;
-                            }
-                            
-                            App.mainWindow.lbPersonsItems.ItemsSource = _persons;
-                            App.mainWindow.lbPersonsItems.Items.Refresh();
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                            errorMessage.MessageShow("Не удалось подключиться к базе данных");
-                        }
-                        break;
-                    case "Депозитный":
-                        try
-                        {
-                            string connecionString = @"Data Source=C:\repos\SimpleBank\SimpleBank\Data\SimpleBank.db;New=False;Compress=True;";
-                            SQLiteConnection connection = new SQLiteConnection(connecionString);
-                            connection.Open();
-                            string stringQuery = "";
-                            bool checkId = Int32.TryParse(textBlockAccountId.Text, out int depositAccountId);
-                            if (checkId)
-                            {
-                                stringQuery = "SELECT TotalDepositAccount FROM Persons WHERE PersonId=" + depositAccountId + "";
-                            }
-                            else
-                            {
-                                errorMessage.MessageShow("Некорректный Id");
-                                return;
-                            }
-                            var SqliteCmd = new SQLiteCommand();
-                            SqliteCmd = connection.CreateCommand();
-                            SqliteCmd.CommandText = stringQuery;
-                            var result = SqliteCmd.ExecuteScalar();
-                            connection.Close();
+                    bool convertTotal = Int32.TryParse(result.ToString(), out int total);
+                    if (convertTotal && total > 0)
+                    {
+                        errorMessage.MessageShow("Для закрытия снимите все деньги со счета");
+                        connection.Close();
+                        return;
+                    }
+                    if (convertTotal && total == 0)
+                    {
+                        stringQuery = "UPDATE Persons SET " + AccountType + "=NULL WHERE PersonId=" + AccountId + "";
+                        SqliteCmd.CommandText = stringQuery;
+                        SqliteCmd.ExecuteScalar();
+                    }
+                    
+                    connection.Close();
 
-                            bool convertTotalDeposit = Int32.TryParse(result.ToString(), out int totalDeposit);
-                            if (convertTotalDeposit && totalDeposit > 0)
-                            {
-                                errorMessage.MessageShow("Для закрытия снимите все деньги со счета");
-                                return;
-                            }
+                    person = _persons.Single(p => p.PersonId == AccountId);
+                    if (choose.Content.Equals("Зарплатный") && person.TotalSalaryAccount == 0)
+                    {
+                        person.TotalSalaryAccount = null;
+                    }
+                    if(choose.Content.Equals("Депозитный") && person.TotalDepositAccount == 0)
+                    {
+                        person.TotalDepositAccount = null;
+                    }
+                    AccountType = "";
 
-                            person = _persons.Single(p => p.PersonId == depositAccountId);
-                            if (person.TotalDepositAccount == 0)
-                            {
-                                person.TotalDepositAccount = null;
-                            }
-
-                            App.mainWindow.lbPersonsItems.ItemsSource = _persons;
-                            App.mainWindow.lbPersonsItems.Items.Refresh();
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                            errorMessage.MessageShow("Не удалось подключиться к базе данных");
-                        }
-                        break;
-                    default:
-                        errorMessage.MessageShow("Неопределенный тип счета");
-                        break;
+                    App.mainWindow.lbPersonsItems.ItemsSource = _persons;
+                    App.mainWindow.lbPersonsItems.Items.Refresh();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    errorMessage.MessageShow("Не удалось подключиться к базе данных");
                 }
             }
         }
