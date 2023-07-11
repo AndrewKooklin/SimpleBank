@@ -44,14 +44,14 @@ namespace SimpleBank.Commands
                 var childrenStackPanel = stackPanel.Children;
 
                 var textBlockAccountId = (TextBlock)childrenStackPanel[1];
-                if(String.IsNullOrWhiteSpace(textBlockAccountId.Text))
+                if (String.IsNullOrWhiteSpace(textBlockAccountId.Text))
                 {
                     errorMessage.MessageShow("Выберите клиента");
                     return;
                 }
                 var comboBoxAccountType = (ComboBox)childrenStackPanel[4];
                 var choose = (ComboBoxItem)comboBoxAccountType.SelectedItem;
-                if(choose == null)
+                if (choose == null)
                 {
                     errorMessage.MessageShow("Выберите тип счета");
                     return;
@@ -67,37 +67,37 @@ namespace SimpleBank.Commands
                     case "Зарплатный":
                         try
                         {
-                            if(person.TotalSalaryAccount != null)
+                            if (person.TotalSalaryAccount != null)
                             {
                                 errorMessage.MessageShow("Зарплатный счет уже открыт");
                                 return;
                             }
-                                string connecionString = @"Data Source=C:\repos\SimpleBank\SimpleBank\Data\SimpleBank.db;New=False;Compress=True;";
-                                SQLiteConnection connection = new SQLiteConnection(connecionString);
-                                connection.Open();
-                                string stringQuery = "";
-                                //bool checkId = Int32.TryParse(textBlockAccountId.Text, out int salaryAccountId);
-                                if (checkId)
-                                {
-                                    stringQuery = "INSERT INTO SalaryAccounts ('SalaryAccountId' , 'SalaryTotal' , 'DateSalaryOpen') " +
-                                                          "VALUES ('" + accountId + "' , '"+
-                                                          0 + "' , '" + DateTime.Now + "')";
-                                }
-                                else
-                                {
-                                    errorMessage.MessageShow("Некорректный Id");
-                                    return;
-                                }
-                                var SqliteCmd = new SQLiteCommand();
-                                SqliteCmd = connection.CreateCommand();
-                                SqliteCmd.CommandText = stringQuery;
-                                SqliteCmd.ExecuteNonQuery();
+                            string connecionString = @"Data Source=C:\repos\SimpleBank\SimpleBank\Data\SimpleBank.db;New=False;Compress=True;";
+                            SQLiteConnection connection = new SQLiteConnection(connecionString);
+                            connection.Open();
+                            string stringQuery = "";
+                            //bool checkId = Int32.TryParse(textBlockAccountId.Text, out int salaryAccountId);
+                            if (checkId)
+                            {
+                                stringQuery = "INSERT INTO SalaryAccounts ('SalaryAccountId' , 'SalaryTotal' , 'DateSalaryOpen') " +
+                                                      "VALUES ('" + accountId + "' , '" +
+                                                      0 + "' , '" + DateTime.Now + "')";
+                            }
+                            else
+                            {
+                                errorMessage.MessageShow("Некорректный Id");
+                                return;
+                            }
+                            var SqliteCmd = new SQLiteCommand();
+                            SqliteCmd = connection.CreateCommand();
+                            SqliteCmd.CommandText = stringQuery;
+                            SqliteCmd.ExecuteNonQuery();
 
-                                stringQuery = "UPDATE Persons SET TotalSalaryAccount=0 WHERE PersonId=" 
-                                                + accountId + "";
-                                SqliteCmd.CommandText = stringQuery;
-                                SqliteCmd.ExecuteNonQuery();
-                                connection.Close();
+                            stringQuery = "UPDATE Persons SET TotalSalaryAccount=0 WHERE PersonId="
+                                            + accountId + "";
+                            SqliteCmd.CommandText = stringQuery;
+                            SqliteCmd.ExecuteNonQuery();
+                            connection.Close();
 
                             person = _persons.Single(p => p.PersonId == accountId);
                             person.TotalSalaryAccount = 0;
